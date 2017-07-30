@@ -19,14 +19,14 @@
 #include "./libft/includes/libft.h"
 #include "ft_ls.h"
 
-typedef struct	s_list{
+typedef struct	s_node{
 	char	*data;
-	struct s_list	*next;
-}				t_list;
+	struct s_node	*next;
+}				t_node;
 
-t_list	*create_elem(char *data);
-void	list_add_back(t_list **head, char *data);
-void	print_list(t_list *head);
-void	sort_list(t_list *head);
+t_node	*create_elem(char *data);
+void	list_add_back(t_node **head, char *data);
+void	print_list(t_node *head);
+void	sort_list(t_node *head);
 
 #endif

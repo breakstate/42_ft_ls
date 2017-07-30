@@ -1,3 +1,0 @@
-gcc test.c -lft -L ./libft
-
-gcc ft_ls2.c ls_lists.c -lft -L ./libft -I ./ft_ls.h -I ./libft/includes/libft.h
