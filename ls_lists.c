@@ -20,7 +20,7 @@ void	list_add_back(t_lslist **head, char *data, char *flags)
 	t_lslist *current;
 
 	current = *head;
-	if (!(ft_strchr(flags, 'a')))
+	if (!(check_flags(flags, 'a')))
 		if (data[0] == '.')
 			return ;
 	if (current != NULL)
