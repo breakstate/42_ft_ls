@@ -16,6 +16,7 @@ int		check_flags(char *flags, char f)
 	{
 		if (flags[i] == f)
 			return (1);
+		i++;
 	}
 	return (0);
 }

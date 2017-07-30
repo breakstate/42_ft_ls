@@ -36,7 +36,7 @@ void	ls_print(char *path, char *flags)
 int		main()
 {
 	ft_putendl("-------------------START--------------------");
-	ls_print("..", "R");
+	ls_print(".", "R");
 	return (0);
 }
 
