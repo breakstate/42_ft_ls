@@ -18,7 +18,7 @@ void	read_list_R(t_lslist *head, char *path, char *flags)
 		if ((opendir(temp)) != NULL && (!(is_dot((current->data))))) //current->data[0] != '.')
 		{
 			ft_putchar('\n');
-			printdir(temp_path(path, current->data), flags);
+			ls_print(temp_path(path, current->data), flags);
 		}
 		current = current->next;
 	}

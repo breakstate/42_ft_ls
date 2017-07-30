@@ -3,101 +3,69 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmoodley <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lvan-gen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/27 09:42:30 by bmoodley          #+#    #+#             */
-/*   Updated: 2017/07/27 14:30:07 by bmoodley         ###   ########.fr       */
+/*   Created: 2017/05/31 11:35:47 by lvan-gen          #+#    #+#             */
+/*   Updated: 2017/06/02 11:01:44 by lvan-gen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
+#include "libft.h"
 
-int		ft_abs(int num)
-{
-	int sign;
-
-	sign = 1;
-	printf("ft_abs in = %d\n", num);
-	if (num < 0)
-	{
-		num = num * -1;
-	}
-	printf("ft_abs = %d\n", num);
-	return (num);
-}
-
-
-static int		digit_count(int n)
-{
-	int		num;
-	int 	i;
-
-	i = 0;
-	num = n;
-	if (n <= 0)
-	{
-		i++;
-		num = -n;
-	}
-	while (num > 0)
-	{
-		num = num / 10;
-		i++;
-	}
-	return (i);
-}
-
-int dc(int n)
+static int	ft_abs(int n)
 {
 	if (n < 0)
-	{
-		return (n > -10) ?  2: 1 + dc(n/10);
-	}
-	return (n < 10) ? 1 : 1 + dc(n/10) ;
+		return (n *= -1);
+	else
+		return (n);
 }
 
-char	*ft_itoa(int n)
+static int	ft_num_len(int num)
 {
-	char	*num;
-	int		i;
-	int		mod;
-	int		sign;
-	int		div;
+	int	len;
 
-	i = dc(n);
-	num = ft_strnew(i);
-	printf("n = %d, i = %d\n", n, i);
-	if (n < 0)
+	len = 0;
+	if (num == 0)
+		len = 1;
+	while (num != 0)
 	{
-		sign = -1;
-		//n *= sign;
+		num /= 10;
+		len++;
 	}
-	//mod = ft_abs(n % 10);
-	while (i-- >= 0)
-	{
-		mod = ft_abs(n % 10);
-		if (n < 10 && n > -10)
-		{
-			num[i] = ft_abs(n) + '0';
-			printf("---if---\n");
-		}
-		else if (mod < 10)
-		{
-			num[i] = mod + '0';
-			printf("---else---\n");
-		}
-		//mod = ft_abs(n % 10);
-		n = (n / 10);
-		printf("num[%d] = %c\n", i, num[i]);
-	}
-	if (sign < 0)
-		num[0] = '-';
-	return (num);
+	return (len);
 }
 
-int main()
+static char	*ft_ptr_prep(int *len, int i)
 {
-	printf("%s\n", ft_itoa(2147483647));
-	return (0);
+	char	*ptr;
+
+	ptr = NULL;
+	if (i < 0)
+	{
+		if ((ptr = ft_strnew(++(*len))) != NULL)
+			ptr[0] = '-';
+	}
+	else
+		ptr = ft_strnew(*len);
+	return (ptr);
 }
-//int min -2147483648
+
+char		*ft_itoa(int i)
+{
+	int		len;
+	char	*ptr;
+
+	len = ft_num_len(i);
+	ptr = ft_ptr_prep(&len, i);
+	if (ptr != NULL)
+	{
+		len--;
+		while (ptr[len] != '-' && len >= 0)
+		{
+			ptr[len] = '0' + ft_abs(i % 10);
+			i /= 10;
+			len--;
+		}
+	}
+	return (ptr);
+}

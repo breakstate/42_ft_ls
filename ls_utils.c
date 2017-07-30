@@ -32,7 +32,6 @@ void	print_path(char *path)
 **	splits args up and assigns flag string
 */
 
-}
 char    **handle_args(int argc, char **argv, char **flags)
 {
 	int     n;

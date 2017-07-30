@@ -31,9 +31,6 @@ char		*append_path(char *path, char *new_path)
 
 void		dir_reset(DIR **dir_ptr, char *path)
 {
-	int		i;
-
-	i = 0;
 	closedir(*dir_ptr);
 	*dir_ptr = opendir(path);
 }

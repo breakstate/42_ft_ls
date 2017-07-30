@@ -46,4 +46,4 @@ clean:
 fclean:	clean
 	$(MAKE) fclean -C ./libft
 
-re: fclean all
+re: fclean lib all

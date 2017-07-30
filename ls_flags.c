@@ -25,15 +25,15 @@ int		check_flags(char *flags, char f)
 **	verifies that only these 5 flags are persent in the flag string
 */
 
-int		verify_flags(*flags)
+int		verify_flags(char *flags)
 {
 	int		i;
 
 	i = 0;
 	while (flags[i])
 	{
-		if (flag[i] != 'R' || flag[i] != 'r' || flag[i] != 'l' 
-			|| flag[i] != 'a' || flag[i] != 't')
+		if (flags[i] != 'R' || flags[i] != 'r' || flags[i] != 'l' 
+			|| flags[i] != 'a' || flags[i] != 't')
 		{
 			return (0);
 		}

@@ -16,19 +16,19 @@ void	ls_print(char *path, char *flags)
 	if ((dir_ptr = opendir(path)) != NULL)
 	{
 		print_path(path);
-		while (cur_dir = readdir(dir_ptr))
+		while ((cur_dir = readdir(dir_ptr)))
 		{
 			//statbuf(cur_dir->d_name, statbuf);
-			list_add_back(&head, cur_dir->d_name, flags)
+			list_add_back(&head, cur_dir->d_name, flags);
 		}
 	}
 	else
 	{
-		ft_putendl(path)
+		ft_putendl(path);
 		return ;
 	}
 	cleanup(head, &dir_ptr, path);
-	if (check_flag("R"))
+	if (check_flags(flags, 'R'))
 		read_list_R(head, path, flags);
 	free_list(head);
 }
@@ -36,6 +36,7 @@ void	ls_print(char *path, char *flags)
 int		main()
 {
 	ft_putendl("-------------------START--------------------");
+	ls_print("..", "R");
 	return (0);
 }
 

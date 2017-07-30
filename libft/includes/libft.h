@@ -79,5 +79,6 @@ char	**ft_strsplit(char const *s, char c);
 int		get_next_line(const int fd, char **line);
 t_list	*ft_lstnew(void *content, size_t content_size);
 void	ft_lstadd_back(t_list **alst, void *content);
+char	*ft_itoa(int i);
 
 #endif

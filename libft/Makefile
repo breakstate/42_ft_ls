@@ -67,7 +67,8 @@ SRC = ft_isascii.c\
 	  ft_isspace.c\
 	  get_next_line.c\
 	  ft_lstnew.c\
-	  ft_lstadd_back.c
+	  ft_lstadd_back.c\
+	  ft_itoa.c
 
 INCLUDES = -I ./includes/
 
