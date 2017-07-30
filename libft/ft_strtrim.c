@@ -1,32 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.h                                            :+:      :+:    :+:   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmoodley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/07 10:54:18 by bmoodley          #+#    #+#             */
-/*   Updated: 2017/07/07 17:48:26 by bmoodley         ###   ########.fr       */
+/*   Created: 2017/06/06 12:57:04 by bmoodley          #+#    #+#             */
+/*   Updated: 2017/07/16 11:51:24 by bmoodley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_LS_H
-# define FT_LS_H
+#include "libft.h"
 
-#include <dirent.h>
-#include <sys/stat.h>
-#include <string.h>
-#include "libft/includes/"
-#include "ft_ls.h"
+char	*ft_strtrim(char const *s)
+{
+	int i;
+	int j;
+	int len;
 
-typedef struct	s_node{
-	char	*data;
-	struct s_node	*next;
-}				t_node;
-
-t_node	*create_elem(char *data);
-void	list_add_back(t_node **head, char *data);
-void	print_list(t_node *head);
-void	sort_list(t_node *head);
-
-#endif
+	j = 0;
+	i = 0;
+	len = ft_strlen(s);
+	if (s != NULL)
+	{
+		while (s[i] == ' ' || s[i] == '\n' || s[i] == '\t')
+		{
+			if (i == (len))
+				return ("");
+			i++;
+		}
+		j = (len - 1);
+		while (s[j] == ' ' || s[j] == '\n' || s[j] == '\t')
+			j--;
+		j = j - i + 1;
+		return (ft_strsub(s, i, j));
+	}
+	return (NULL);
+}

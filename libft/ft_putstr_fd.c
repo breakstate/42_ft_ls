@@ -1,32 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.h                                            :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmoodley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/07 10:54:18 by bmoodley          #+#    #+#             */
-/*   Updated: 2017/07/07 17:48:26 by bmoodley         ###   ########.fr       */
+/*   Created: 2017/06/06 10:57:13 by bmoodley          #+#    #+#             */
+/*   Updated: 2017/06/09 10:13:04 by bmoodley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_LS_H
-# define FT_LS_H
+#include "libft.h"
 
-#include <dirent.h>
-#include <sys/stat.h>
-#include <string.h>
-#include "libft/includes/"
-#include "ft_ls.h"
+void	ft_putstr_fd(char const *s, int fd)
+{
+	int i;
 
-typedef struct	s_node{
-	char	*data;
-	struct s_node	*next;
-}				t_node;
-
-t_node	*create_elem(char *data);
-void	list_add_back(t_node **head, char *data);
-void	print_list(t_node *head);
-void	sort_list(t_node *head);
-
-#endif
+	i = 0;
+	if (s != NULL)
+		while (s[i] != '\0')
+		{
+			write(fd, &s[i], 1);
+			i++;
+		}
+}

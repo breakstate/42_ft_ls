@@ -1,32 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.h                                            :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmoodley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/07 10:54:18 by bmoodley          #+#    #+#             */
-/*   Updated: 2017/07/07 17:48:26 by bmoodley         ###   ########.fr       */
+/*   Created: 2017/06/10 16:32:23 by bmoodley          #+#    #+#             */
+/*   Updated: 2017/07/16 12:33:44 by bmoodley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_LS_H
-# define FT_LS_H
+#include "libft.h"
 
-#include <dirent.h>
-#include <sys/stat.h>
-#include <string.h>
-#include "libft/includes/"
-#include "ft_ls.h"
+void	ft_striteri(char *s, void (*f)(unsigned int, char *))
+{
+	unsigned int i;
 
-typedef struct	s_node{
-	char	*data;
-	struct s_node	*next;
-}				t_node;
-
-t_node	*create_elem(char *data);
-void	list_add_back(t_node **head, char *data);
-void	print_list(t_node *head);
-void	sort_list(t_node *head);
-
-#endif
+	i = 0;
+	if (s != NULL)
+		while (s[i] != '\0')
+		{
+			f(i, &s[i]);
+			i++;
+		}
+}

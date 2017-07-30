@@ -1,32 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.h                                            :+:      :+:    :+:   */
+/*   ft_memalloc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmoodley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/07 10:54:18 by bmoodley          #+#    #+#             */
-/*   Updated: 2017/07/07 17:48:26 by bmoodley         ###   ########.fr       */
+/*   Created: 2017/06/07 15:07:37 by bmoodley          #+#    #+#             */
+/*   Updated: 2017/07/01 22:38:21 by bmoodley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_LS_H
-# define FT_LS_H
+#include "libft.h"
 
-#include <dirent.h>
-#include <sys/stat.h>
-#include <string.h>
-#include "libft/includes/"
-#include "ft_ls.h"
+void	*ft_memalloc(size_t size)
+{
+	char *new;
 
-typedef struct	s_node{
-	char	*data;
-	struct s_node	*next;
-}				t_node;
-
-t_node	*create_elem(char *data);
-void	list_add_back(t_node **head, char *data);
-void	print_list(t_node *head);
-void	sort_list(t_node *head);
-
-#endif
+	new = (char *)malloc(sizeof(char) * size);
+	if (new == NULL)
+		return (NULL);
+	ft_bzero(new, size);
+	return (new);
+}

@@ -1,32 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.h                                            :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmoodley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/07 10:54:18 by bmoodley          #+#    #+#             */
-/*   Updated: 2017/07/07 17:48:26 by bmoodley         ###   ########.fr       */
+/*   Created: 2017/05/30 09:02:47 by bmoodley          #+#    #+#             */
+/*   Updated: 2017/05/30 09:03:09 by bmoodley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_LS_H
-# define FT_LS_H
-
-#include <dirent.h>
-#include <sys/stat.h>
-#include <string.h>
-#include "libft/includes/"
-#include "ft_ls.h"
-
-typedef struct	s_node{
-	char	*data;
-	struct s_node	*next;
-}				t_node;
-
-t_node	*create_elem(char *data);
-void	list_add_back(t_node **head, char *data);
-void	print_list(t_node *head);
-void	sort_list(t_node *head);
-
-#endif
+int	ft_isalpha(int c)
+{
+	if (((c >= 97) && (c <= 122)) || ((c >= 65) && (c <= 90)))
+		return (1);
+	else
+		return (0);
+}

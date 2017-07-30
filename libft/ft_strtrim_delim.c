@@ -1,32 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.h                                            :+:      :+:    :+:   */
+/*   ft_strtrim_delim.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmoodley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/07 10:54:18 by bmoodley          #+#    #+#             */
-/*   Updated: 2017/07/07 17:48:26 by bmoodley         ###   ########.fr       */
+/*   Created: 2017/06/11 15:03:12 by bmoodley          #+#    #+#             */
+/*   Updated: 2017/07/16 11:51:58 by bmoodley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_LS_H
-# define FT_LS_H
+#include "libft.h"
 
-#include <dirent.h>
-#include <sys/stat.h>
-#include <string.h>
-#include "libft/includes/"
-#include "ft_ls.h"
+char	*ft_strtrim_delim(char const *s, char c)
+{
+	int i;
+	int j;
+	int len;
 
-typedef struct	s_node{
-	char	*data;
-	struct s_node	*next;
-}				t_node;
-
-t_node	*create_elem(char *data);
-void	list_add_back(t_node **head, char *data);
-void	print_list(t_node *head);
-void	sort_list(t_node *head);
-
-#endif
+	i = 0;
+	j = 0;
+	len = ft_strlen(s);
+	if (s != NULL)
+	{
+		while (s[i] == c)
+		{
+			i++;
+			if (i == len)
+				return ("");
+		}
+		j = (len - 1);
+		while (s[j] == c)
+			j--;
+		j = j - i + 1;
+		return (ft_strsub(s, i, j));
+	}
+	return (NULL);
+}

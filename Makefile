@@ -12,13 +12,20 @@
 
 NAME = ft_ls
 
-SRC = test.c
+SRC = ls_main.c \
+		ls_path_man.c \
+		ls_lists.c \
+		ls_is.c \
+		ls_recursive.c \
+		ls_utils.c \
+		ls_long.c \
+		ls_flags.c
 
 FLAGS = -Wall -Werror -Wextra
 
 LIBFT = -lft -L ./libft
 
-INCLUDES = -I ./libft/includes/libft.h -I ./libft/includes/get_next_line.h
+INCLUDES = -I ./libft/includes/
 
 all: $(NAME)
 

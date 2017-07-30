@@ -1,32 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.h                                            :+:      :+:    :+:   */
+/*   ft_strmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmoodley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/07 10:54:18 by bmoodley          #+#    #+#             */
-/*   Updated: 2017/07/07 17:48:26 by bmoodley         ###   ########.fr       */
+/*   Created: 2017/06/07 14:31:27 by bmoodley          #+#    #+#             */
+/*   Updated: 2017/06/08 17:43:31 by bmoodley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_LS_H
-# define FT_LS_H
+#include "libft.h"
 
-#include <dirent.h>
-#include <sys/stat.h>
-#include <string.h>
-#include "libft/includes/"
-#include "ft_ls.h"
+char	*ft_strmap(char const *s, char (*f)(char))
+{
+	int		i;
+	char	*ret;
 
-typedef struct	s_node{
-	char	*data;
-	struct s_node	*next;
-}				t_node;
-
-t_node	*create_elem(char *data);
-void	list_add_back(t_node **head, char *data);
-void	print_list(t_node *head);
-void	sort_list(t_node *head);
-
-#endif
+	i = 0;
+	if (s != NULL)
+	{
+		ret = (char *)malloc(sizeof(char) * ft_strlen(s) + 1);
+		if (ret == NULL)
+			return (NULL);
+		while (s[i] != '\0')
+		{
+			ret[i] = f(s[i]);
+			i++;
+		}
+		ret[i] = '\0';
+		return (ret);
+	}
+	return (NULL);
+}
