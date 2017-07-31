@@ -1,37 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ls_recursive.c                                     :+:      :+:    :+:   */
+/*   ls_lists_2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmoodley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/31 16:08:50 by bmoodley          #+#    #+#             */
-/*   Updated: 2017/07/31 16:14:17 by bmoodley         ###   ########.fr       */
+/*   Created: 2017/07/31 14:47:59 by bmoodley          #+#    #+#             */
+/*   Updated: 2017/07/31 15:53:36 by bmoodley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-/*
-**	read_list_R(
-**	reads contents of dir recursively
-**	when -R flag is present
-*/
-
-void	read_list_r(t_lslist *head, char *path, char *flags)
+void		sort_list_r(t_lslist *head)
 {
+	int			sorted;
 	t_lslist	*current;
-	char		*temp;
+	char		*tmp;
 
 	current = head;
-	while (current != NULL)
+	while (current->next)
 	{
-		temp = temp_path(path, current->data);
-		if ((opendir(temp)) != NULL && (!(is_dot((current->data)))))//current->data[0] != '.')
+		if (ft_strcmp(current->data, current->next->data) < 0)
 		{
-			ft_putchar('\n');
-			ls_print(temp_path(path, current->data), flags);
+			sorted = 1;
+			tmp = current->data;
+			current->data = current->next->data;
+			current->next->data = tmp;
 		}
 		current = current->next;
+		if (current->next == NULL && sorted == 0)
+			return ;
+		else if (current->next == NULL)
+		{
+			current = head;
+			sorted = 0;
+		}
 	}
 }

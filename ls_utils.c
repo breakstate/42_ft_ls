@@ -1,15 +1,25 @@
-//ls_utils.c
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ls_utils.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bmoodley <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/07/31 16:08:02 by bmoodley          #+#    #+#             */
+/*   Updated: 2017/07/31 16:08:06 by bmoodley         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "ft_ls.h"
 
 /*
- **	cleanup()
- **	calls other functions to save lines
- */
+**	cleanup()
+**	calls other functions to save lines
+*/
 
-void	cleanup(t_lslist *head, DIR **dir_ptr, char *path)
+void		cleanup(t_lslist *head, DIR **dir_ptr, char *path, char *flags)
 {
-	sort_list(head);
+	sort_list(head, flags);
 	print_list(head);
 	dir_reset(dir_ptr, path);
 	//	read_list(head, path);
@@ -17,11 +27,11 @@ void	cleanup(t_lslist *head, DIR **dir_ptr, char *path)
 }
 
 /*
- **	print_path()
- **	prints path, saves lines
- */
+**	print_path()
+**	prints path, saves lines
+*/
 
-void	print_path(char *path)
+void		print_path(char *path)
 {
 	ft_putstr(path);
 	ft_putendl(":");
@@ -32,11 +42,11 @@ void	print_path(char *path)
 **	splits args up and assigns flag string
 */
 
-char    **handle_args(int argc, char **argv, char **flags)
+char		**handle_args(int argc, char **argv, char **flags)
 {
-	int     n;
-	int     j;
-	char    **dirs;
+	int		n;
+	int		j;
+	char	**dirs;
 
 	if (argv[1][0] == '-')
 	{
@@ -62,4 +72,3 @@ char    **handle_args(int argc, char **argv, char **flags)
 	}
 	return (dirs);
 }
-

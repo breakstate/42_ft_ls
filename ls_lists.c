@@ -1,10 +1,20 @@
-//ls_lists.c
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ls_lists.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bmoodley <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/07/31 16:05:28 by bmoodley          #+#    #+#             */
+/*   Updated: 2017/07/31 16:12:48 by bmoodley         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "ft_ls.h"
 
-t_lslist	*create_elem(char *data)
+t_lslist		*create_elem(char *data)
 {
-	t_lslist *tmp;
+	t_lslist	*tmp;
 
 	tmp = (t_lslist *)malloc(sizeof(t_lslist));
 	if (tmp != NULL)
@@ -15,9 +25,9 @@ t_lslist	*create_elem(char *data)
 	return (tmp);
 }
 
-void	list_add_back(t_lslist **head, char *data, char *flags)
+void			list_add_back(t_lslist **head, char *data, char *flags)
 {
-	t_lslist *current;
+	t_lslist	*current;
 
 	current = *head;
 	if (!(check_flags(flags, 'a')))
@@ -35,9 +45,9 @@ void	list_add_back(t_lslist **head, char *data, char *flags)
 		*head = create_elem(data);
 }
 
-void	print_list(t_lslist *head)
+void			print_list(t_lslist *head)
 {
-	t_lslist *current;
+	t_lslist	*current;
 
 	current = head;
 	while (current != NULL)
@@ -47,37 +57,38 @@ void	print_list(t_lslist *head)
 	}
 }
 
-void	sort_list(t_lslist *head)
+void			sort_list(t_lslist *head, char *flags)
 {
 	int			sorted;
 	t_lslist	*current;
 	char		*tmp;
 
 	current = head;
-	while (current->next)
-	{
-		if (ft_strcmp(current->data, current->next->data) > 0)
+	if (!(check_flags(flags, 'r')))
+		while (current->next)
 		{
-			sorted = 1;
-			tmp = current->data;
-			current->data = current->next->data;
-			current->next->data = tmp;
+			if (ft_strcmp(current->data, current->next->data) > 0)
+			{
+				sorted = 1;
+				tmp = current->data;
+				current->data = current->next->data;
+				current->next->data = tmp;
+			}
+			current = current->next;
+			if (current->next == NULL && sorted == 1)
+			{
+				current = head;
+				sorted = 0;
+			}
 		}
-		current = current->next;
-		if (current->next == NULL && sorted == 0)
-			return ;
-		else if (current->next == NULL)
-		{
-			current = head;
-			sorted = 0;
-		}
-	}
+	else
+		sort_list_r(head);
 }
 
-void	free_list(t_lslist *head)
+void			free_list(t_lslist *head)
 {
-	t_lslist *current;
-	t_lslist *next;
+	t_lslist	*current;
+	t_lslist	*next;
 
 	current = head;
 	while (current != NULL)

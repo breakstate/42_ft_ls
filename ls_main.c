@@ -1,4 +1,14 @@
-//ls_main.c
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ls_main.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bmoodley <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/07/31 15:58:14 by bmoodley          #+#    #+#             */
+/*   Updated: 2017/07/31 16:14:36 by bmoodley         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "ft_ls.h"
 
@@ -27,16 +37,16 @@ void	ls_print(char *path, char *flags)
 		ft_putendl(path);
 		return ;
 	}
-	cleanup(head, &dir_ptr, path);
+	cleanup(head, &dir_ptr, path, flags);
 	if (check_flags(flags, 'R'))
-		read_list_R(head, path, flags);
+		read_list_r(head, path, flags);
 	free_list(head);
 }
 
-int		main()
+int		main(int argc, char **argv)
 {
 	ft_putendl("-------------------START--------------------");
-	ls_print(".", "aR");
+	ls_print(".", argv[argc - 1]);
 	return (0);
 }
 

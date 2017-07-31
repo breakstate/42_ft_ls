@@ -1,4 +1,14 @@
-//ls_long.c
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ls_long.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bmoodley <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/07/31 16:09:42 by bmoodley          #+#    #+#             */
+/*   Updated: 2017/07/31 16:09:50 by bmoodley         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 //lstat populates statbuf which gets passed to a function that puts together a string of
 //all attributes collated from a bunch of other functions.
@@ -50,6 +60,7 @@ char	*get_usr_grp(struct stat *statbuf)
 {
 	struct passwd	*pwd;
 	struct group	*grp;
+
 	pwd = getpwuid(statbuf->st_uid);
 	grp = getgrgid(statbuf->st_gid);
 	return ((char *)ft_strjoin(ft_strjoin(pwd->pw_name, "  "), grp->gr_name));

@@ -6,7 +6,7 @@
 #    By: bmoodley <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/05 15:04:59 by bmoodley          #+#    #+#              #
-#    Updated: 2017/07/05 16:04:28 by bmoodley         ###   ########.fr        #
+#    Updated: 2017/07/31 15:34:34 by bmoodley         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ SRC = ls_main.c \
 		ls_recursive.c \
 		ls_utils.c \
 		ls_long.c \
-		ls_flags.c
+		ls_flags.c \
+		ls_lists_2.c
 
 FLAGS = -Wall -Werror -Wextra
 
