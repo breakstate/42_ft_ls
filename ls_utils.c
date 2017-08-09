@@ -6,7 +6,7 @@
 /*   By: bmoodley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/31 16:08:02 by bmoodley          #+#    #+#             */
-/*   Updated: 2017/08/09 15:47:35 by bmoodley         ###   ########.fr       */
+/*   Updated: 2017/08/09 16:16:06 by bmoodley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,72 +42,32 @@ void		print_path(char *path)
 **	splits args up and assigns flag string
 */
 
-/*
-char		**handle_args(int argc, char **argv, char **flags)
-{
-	int		n;
-	int		j;
-	char	**dirs;
-
-	if (argv[1][0] == '-')
-	{
-		dirs = (char **)malloc((sizeof(char *) * argc - 1));
-		*flags = argv[1];
-		dirs[argc - 2] = "";
-	}
-	else
-	{
-		dirs = (char **)malloc((sizeof(char *) * argc));
-		dirs[argc - 1] = "";
-	}
-	n = 1;
-	j = 0;
-	while (dirs[j])
-	{
-		if (!(n == 1 && argv[n][0] == '-'))
-		{
-			dirs[j++] = argv[n];
-			//      j++;
-		}
-		n++;
-	}
-	return (dirs);
-}
-*/
-
 char		**handle_args(int argc, char **argv, char **flags)
 {
 	char	**args;
 	int		i;
 	int		j;
 
-	j  = 0;
+	j  = -1;
+	i = 2;
 	if (argv[1][0] == '-')
 	{
-		i = 2;
 		*flags = argv[1];
 		args = (char **)malloc(sizeof(char *) * argc - 1);
-		while (i + j < argc)
-		{
+		while (i + j++ < argc)
 			args[j] = argv[i + j];
-			j++;
-		}
 	}
 	else
 	{
-		i = 1;
 		args = (char **)malloc(sizeof(char *) * argc);
-		while (i + j < argc)
-		{
+		while ((i - 1) + j++ < argc)
 			args[j] = argv[i + j];
-			j++;
-		}
 	}
 	args[j] = 0;
 	return (args);
 }
 
-char		**no_args()
+char		**no_args(void)
 {
 	char	**args;
 
