@@ -6,7 +6,7 @@
 /*   By: bmoodley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/31 15:58:14 by bmoodley          #+#    #+#             */
-/*   Updated: 2017/08/09 16:30:06 by bmoodley         ###   ########.fr       */
+/*   Updated: 2017/08/09 16:34:25 by bmoodley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ void	ls_print(char *path, char *flags)
 	}
 	else
 	{
-		ft_putendl(path);
+		ft_putstr(path);
+		ft_putendl(": not a valid directory");
 		return ;
 	}
 	cleanup(head, &dir_ptr, path, flags);
