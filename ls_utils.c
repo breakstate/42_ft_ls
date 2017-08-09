@@ -6,7 +6,7 @@
 /*   By: bmoodley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/31 16:08:02 by bmoodley          #+#    #+#             */
-/*   Updated: 2017/08/09 16:30:04 by bmoodley         ###   ########.fr       */
+/*   Updated: 2017/08/09 16:55:01 by bmoodley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,11 @@ char		**handle_args(int argc, char **argv, char **flags)
 	args[j] = 0;
 	return (args);
 }
+
+/*
+**	no_args()
+**	sets null terminated 2d array with first arg as "." (current dir)
+*/
 
 char		**no_args(void)
 {

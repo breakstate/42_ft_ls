@@ -6,11 +6,17 @@
 /*   By: bmoodley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/31 15:58:14 by bmoodley          #+#    #+#             */
-/*   Updated: 2017/08/09 16:34:25 by bmoodley         ###   ########.fr       */
+/*   Updated: 2017/08/09 16:56:19 by bmoodley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+/*
+**	ls_print()
+**	prints the specified current directory 
+**	recurses if R is present in flag string
+*/
 
 void	ls_print(char *path, char *flags)
 {
@@ -35,7 +41,7 @@ void	ls_print(char *path, char *flags)
 	else
 	{
 		ft_putstr(path);
-		ft_putendl(": not a valid directory");
+		ft_putendl(": No such file or directory bruh");
 		return ;
 	}
 	cleanup(head, &dir_ptr, path, flags);
@@ -54,17 +60,18 @@ int		main(int argc, char **argv)
 	flags = "";
 	ft_putendl("-------------------START--------------------");
 	if (argc > 1)
-	{
 		args = handle_args(argc, argv, &flags);
-	}
 	else
 		args = no_args();
+	//sort args
+	//check if args are valid (prints invalid first)
 	while (args[i])
 	{
 		ls_print(args[i], flags);
 		ft_putstr("\n");
 		i++;
 	}
+	free(args);
 	return (0);
 }
 
