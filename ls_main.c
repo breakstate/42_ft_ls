@@ -6,7 +6,7 @@
 /*   By: bmoodley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/31 15:58:14 by bmoodley          #+#    #+#             */
-/*   Updated: 2017/07/31 16:14:36 by bmoodley         ###   ########.fr       */
+/*   Updated: 2017/08/09 15:48:27 by bmoodley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,25 @@ void	ls_print(char *path, char *flags)
 
 int		main(int argc, char **argv)
 {
+	char **args;
+	char *flags;
+	int		i;
+
+	i = 0;
+	flags = "";
 	ft_putendl("-------------------START--------------------");
-	ls_print(".", argv[argc - 1]);
+	if (argc > 1)
+	{
+		args = handle_args(argc, argv, &flags);
+	}
+	else
+		args = no_args();
+	while (args[i])
+	{
+		ls_print(args[i], flags);
+		ft_putstr("\n");
+		i++;
+	}
 	return (0);
 }
 

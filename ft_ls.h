@@ -6,7 +6,7 @@
 /*   By: bmoodley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/07 10:54:18 by bmoodley          #+#    #+#             */
-/*   Updated: 2017/07/31 16:28:56 by bmoodley         ###   ########.fr       */
+/*   Updated: 2017/08/09 15:30:29 by bmoodley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,7 @@ char				*get_usr_grp(struct stat *statbuf);
 char				*get_mtime(struct stat *statbuf);
 char				**handle_args(int argc, char **argv, char **flags);
 int					check_flags(char *flags, char f);
+char				*get_flags(int argc, char **argv, char **flags);
+char				**no_args();
 
 #endif
