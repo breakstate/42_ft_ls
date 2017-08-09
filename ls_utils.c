@@ -6,7 +6,7 @@
 /*   By: bmoodley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/31 16:08:02 by bmoodley          #+#    #+#             */
-/*   Updated: 2017/08/09 16:16:06 by bmoodley         ###   ########.fr       */
+/*   Updated: 2017/08/09 16:30:04 by bmoodley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,14 @@ char		**handle_args(int argc, char **argv, char **flags)
 	{
 		*flags = argv[1];
 		args = (char **)malloc(sizeof(char *) * argc - 1);
-		while (i + j++ < argc)
+		while (i + ++j < argc)
 			args[j] = argv[i + j];
 	}
 	else
 	{
 		args = (char **)malloc(sizeof(char *) * argc);
-		while ((i - 1) + j++ < argc)
-			args[j] = argv[i + j];
+		while ((i - 1) + ++j < argc)
+			args[j] = argv[(i - 1) + j];
 	}
 	args[j] = 0;
 	return (args);
