@@ -6,7 +6,7 @@
 /*   By: bmoodley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/31 16:08:02 by bmoodley          #+#    #+#             */
-/*   Updated: 2017/08/09 16:55:01 by bmoodley         ###   ########.fr       */
+/*   Updated: 2017/08/10 16:53:34 by bmoodley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,16 @@ char		**handle_args(int argc, char **argv, char **flags)
 
 	j  = -1;
 	i = 2;
+    args = NULL;
 	if (argv[1][0] == '-')
 	{
-		*flags = argv[1];
-		args = (char **)malloc(sizeof(char *) * argc - 1);
-		while (i + ++j < argc)
-			args[j] = argv[i + j];
+	//	*flags = argv[1];
+	//	args = (char **)malloc(sizeof(char *) * argc - 1);
+	//	while (i + ++j < argc)
+	//		args[j] = argv[i + j];
+        args = handle_flags(argc, argv, flags, args);
+        //if (!(verify_flags(*flags)))
+        //    return (0);//should return NULL if a flag is invalid
 	}
 	else
 	{
@@ -65,6 +69,38 @@ char		**handle_args(int argc, char **argv, char **flags)
 	}
 	args[j] = 0;
 	return (args);
+}
+
+/*
+**	handle_flags()
+**	finds each flag arg and appends them to flag string until non flag arg found
+**	any flag after that treated as dir and will be shown as erroneous
+*/
+
+char		**handle_flags(int argc, char **argv, char **flags, char **args)
+{
+	int		i;
+    int     j;
+	char	*new;
+
+	new = "";
+    j = 0;
+	i = 1;
+	while (argv[i][0] == '-')
+   	{
+    	new = ft_strjoin(new, argv[i] + 1);
+        i++;
+   	}
+    args = (char **)malloc(sizeof(char *) * (argc - --i));
+    while (i + j < argc)
+    {
+        args[j] = argv[i + j];
+        j++;
+    }
+    printf("flags = %s\n", new);
+    args[j] = 0;
+    *flags = new;
+    return (args);
 }
 
 /*

@@ -6,7 +6,7 @@
 /*   By: bmoodley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/07 10:54:18 by bmoodley          #+#    #+#             */
-/*   Updated: 2017/08/09 15:30:29 by bmoodley         ###   ########.fr       */
+/*   Updated: 2017/08/10 16:53:36 by bmoodley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,7 @@ char				**handle_args(int argc, char **argv, char **flags);
 int					check_flags(char *flags, char f);
 char				*get_flags(int argc, char **argv, char **flags);
 char				**no_args();
+char                **handle_flags(int argc, char **argv, char **flags, char **args);
+int                 verify_flags(char *flags);
 
 #endif
