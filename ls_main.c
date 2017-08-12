@@ -69,8 +69,9 @@ int		main(int argc, char **argv)
 	ft_putendl("-------------------START--------------------");
 	if (argc > 1)
 	{
-		puts("if");//remove debug
 		args = handle_args(argc, argv, &flags);
+		if (args == 0)
+			return (0);
 	}
 	else
 		args = no_args();

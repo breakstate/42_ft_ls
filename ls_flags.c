@@ -43,9 +43,13 @@ int		verify_flags(char *flags)
 	i = 0;
 	while (flags[i])
 	{
-		if (flags[i] != 'R' || flags[i] != 'r' || flags[i] != 'l'
-			|| flags[i] != 'a' || flags[i] != 't')
+		if (flags[i] != 'R' && flags[i] != 'r' && flags[i] != 'l'
+			&& flags[i] != 'a' && flags[i] != 't')
 		{
+			ft_putstr("ft_ls: ");
+			ft_putstr("invalid option -- '");
+			ft_putchar(flags[i]);;
+			ft_putstr("'\n");
 			return (0);
 		}
 		i++;
