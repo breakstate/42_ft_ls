@@ -16,11 +16,11 @@ SRC = ls_main.c \
 		ls_path_man.c \
 		ls_lists.c \
 		ls_is.c \
-		ls_recursive.c \
+		ls_flag_rec.c \
 		ls_utils.c \
-		ls_long.c \
+		ls_flag_long.c \
 		ls_flags.c \
-		ls_lists_2.c
+		ls_flag_rev.c
 
 FLAGS = -Wall -Werror -Wextra
 
