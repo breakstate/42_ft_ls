@@ -50,6 +50,14 @@ void	ls_print(char *path, char *flags)
 	free_list(head);
 }
 
+/*
+**	main()
+**	initializes args and flags
+**	checks if flags are valid
+**	sorts args, checks if valid
+**	prints contents of dir specified by current arg
+*/
+
 int		main(int argc, char **argv)
 {
 	char **args;
@@ -60,7 +68,10 @@ int		main(int argc, char **argv)
 	flags = "";
 	ft_putendl("-------------------START--------------------");
 	if (argc > 1)
+	{
+		puts("if");//remove debug
 		args = handle_args(argc, argv, &flags);
+	}
 	else
 		args = no_args();
 	//sort args
@@ -68,10 +79,12 @@ int		main(int argc, char **argv)
 	while (args[i])
 	{
 		ls_print(args[i], flags);
+		printf("|74|ls_main.c| main loop - args[%d] = %s\n", i, args[i]);
 		ft_putstr("\n");
 		i++;
 	}
-	free(args);
+	printf("args = %p\n", args);
+	//free(args);//ubuntu is complaining that this is an invalid pointer being freed
 	return (0);
 }
 

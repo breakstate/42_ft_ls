@@ -57,6 +57,7 @@ char		**handle_args(int argc, char **argv, char **flags)
 	//	args = (char **)malloc(sizeof(char *) * argc - 1);
 	//	while (i + ++j < argc)
 	//		args[j] = argv[i + j];
+		puts("about to enter handle_flags()");//remove debug
         args = handle_flags(argc, argv, flags, args);
         //if (!(verify_flags(*flags)))
         //    return (0);//should return NULL if a flag is invalid
@@ -86,20 +87,30 @@ char		**handle_flags(int argc, char **argv, char **flags, char **args)
 	new = "";
     j = 0;
 	i = 1;
-	while (argv[i][0] == '-')
+	while (i < argc && argv[i][0] == '-')
    	{
+		puts("in while");//remove debug
     	new = ft_strjoin(new, argv[i] + 1);
+		printf("new = %s\n", new);
+    	*flags = new;
         i++;
+		printf("i = %d, argc = %d\n", i, argc);
    	}
-    args = (char **)malloc(sizeof(char *) * (argc - --i));
+	if (i == argc)
+		return (no_args());//returns "." if no dir specified
+	puts("out while");//remove debug
+	printf("|94|ls_utils.c| argc = %d, i = %d\n", argc, i);//remove debug
+    args = (char **)malloc(sizeof(char *) * (argc - (--i - 1)));// malloc one extra
+	printf("size of malloc = %d\n", argc - (i- 1));//remove debug
+	i++;
     while (i + j < argc)
     {
         args[j] = argv[i + j];
+		printf("args[%d] = %s, argv[%d] = %s\n", j, argv[j], i+j, argv[i + j]);
         j++;
     }
     printf("flags = %s\n", new);
     args[j] = 0;
-    *flags = new;
     return (args);
 }
 
