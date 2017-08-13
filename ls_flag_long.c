@@ -17,6 +17,7 @@
 
 void	get_stats(struct stat *statbuf)
 {
+	printf("entered get_stats\n");//remove debug
 	printf("%s\n", get_perms(statbuf));
 	//printf("%s\n", get_nlinks(statbuf));
 	printf("%s\n", get_usr_grp(statbuf));
@@ -27,8 +28,10 @@ char	*get_perms(struct stat *statbuf)
 {
 	char *perms;
 
+	printf("get_perms\n");
 	perms = (char *)malloc(sizeof(char) * 11);
 	perms[0] = (statbuf->st_mode & S_IFSOCK) ? 's' : '-';
+	printf("%s\n", perms);
 	perms[0] = (statbuf->st_mode & S_IFIFO) ? 'p' : '-';
 	perms[0] = (statbuf->st_mode & S_IFCHR) ? 'c' : '-';
 	perms[0] = (statbuf->st_mode & S_IFBLK) ? 'b' : '-';
@@ -43,7 +46,9 @@ char	*get_perms(struct stat *statbuf)
 	perms[7] = (statbuf->st_mode & S_IROTH) ? 'r' : '-';
 	perms[8] = (statbuf->st_mode & S_IWOTH) ? 'w' : '-';
 	perms[9] = (statbuf->st_mode & S_IXOTH) ? 'x' : '-';
+	printf("%s\n", perms);
 	perms[10] = '\0';
+	printf("%s\n", perms);
 	return (perms);
 }
 

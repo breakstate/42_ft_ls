@@ -22,19 +22,19 @@ void	ls_print(char *path, char *flags)
 {
 	DIR				*dir_ptr;
 	struct dirent	*cur_dir;
-	//struct stat	*statbuf;
+	struct stat		*statbuf;
 	t_lslist		*head;
 
 	dir_ptr = NULL;
 	cur_dir = NULL;
-	//statbuf = NULL;
+	statbuf = NULL;
 	head = NULL;
 	if ((dir_ptr = opendir(path)) != NULL)
 	{
 		print_path(path);
 		while ((cur_dir = readdir(dir_ptr)))
 		{
-			//statbuf(cur_dir->d_name, statbuf);
+			stat(cur_dir->d_name, statbuf);
 			list_add_back(&head, cur_dir->d_name, flags);
 		}
 	}
@@ -44,7 +44,7 @@ void	ls_print(char *path, char *flags)
 		ft_putendl(": No such file or directory bruh");
 		return ;
 	}
-	cleanup(head, &dir_ptr, path, flags);
+	cleanup(head, &dir_ptr, path, flags, statbuf);//added statbuf
 	if (check_flags(flags, 'R'))
 		read_list_r(head, path, flags);
 	free_list(head);
@@ -64,7 +64,7 @@ int		main(int argc, char **argv)
 	char *flags;
 	int		i;
 
-	i = 0;
+	i = -1;
 	flags = "";
 	ft_putendl("-------------------START--------------------");
 	if (argc > 1)
@@ -77,14 +77,11 @@ int		main(int argc, char **argv)
 		args = no_args();
 	//sort args
 	//check if args are valid (prints invalid first)
-	while (args[i])
+	while (args[++i])
 	{
 		ls_print(args[i], flags);
-		printf("|74|ls_main.c| main loop - args[%d] = %s\n", i, args[i]);
 		ft_putstr("\n");
-		i++;
 	}
-	printf("args = %p\n", args);
 	//free(args);//ubuntu is complaining that this is an invalid pointer being freed
 	return (0);
 }

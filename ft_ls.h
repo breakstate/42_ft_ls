@@ -33,7 +33,7 @@ typedef t_lslist	t_l;
 
 t_lslist			*create_elem(char *data);
 void				list_add_back(t_lslist **head, char *data, char *flags);
-void				print_list(t_lslist *head);
+void				print_list(t_lslist *head, struct stat *statbuf);//added statbuff
 void				sort_list(t_lslist *head, char *flags);
 void				sort_list_r(t_lslist *head);
 void				free_list(t_lslist *head);
@@ -41,7 +41,7 @@ void				read_list_r(t_lslist *head, char *path, char *flags);
 char				*temp_path(char *path, char *d_name);
 char				*append_path(char *path, char *new_path);
 void				ls_print(char *path, char *flags);
-void				cleanup(t_l *head, DIR **dir_ptr, char *path, char *flags);
+void				cleanup(t_l *head, DIR **dir_ptr, char *path, char *flags, struct stat *statbuf);//added statbuf
 void				dir_reset(DIR **dir_ptr, char *path);
 int					is_dot(char *d_name);
 int					is_hidden(char *d_name);

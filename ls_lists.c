@@ -45,13 +45,14 @@ void			list_add_back(t_lslist **head, char *data, char *flags)
 		*head = create_elem(data);
 }
 
-void			print_list(t_lslist *head)
+void			print_list(t_lslist *head, struct stat *statbuf)//added statbuf
 {
 	t_lslist	*current;
 
 	current = head;
 	while (current != NULL)
 	{
+		get_stats(statbuf);//testing L stuff
 		ft_putendl(current->data);
 		current = current->next;
 	}
