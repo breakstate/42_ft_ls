@@ -22,19 +22,20 @@ void	ls_print(char *path, char *flags)
 {
 	DIR				*dir_ptr;
 	struct dirent	*cur_dir;
-	struct stat		*statbuf;
+	struct stat		statbuf;
 	t_lslist		*head;
 
 	dir_ptr = NULL;
 	cur_dir = NULL;
-	statbuf = NULL;
+	//statbuf = NULL;
 	head = NULL;
 	if ((dir_ptr = opendir(path)) != NULL)
 	{
 		print_path(path);
 		while ((cur_dir = readdir(dir_ptr)))
 		{
-			stat(cur_dir->d_name, statbuf);
+			stat(cur_dir->d_name, &statbuf);
+			printf("%lu\n", statbuf.st_nlink);
 			list_add_back(&head, cur_dir->d_name, flags);
 		}
 	}
@@ -44,7 +45,7 @@ void	ls_print(char *path, char *flags)
 		ft_putendl(": No such file or directory bruh");
 		return ;
 	}
-	cleanup(head, &dir_ptr, path, flags, statbuf);//added statbuf
+	cleanup(head, &dir_ptr, path, flags, &statbuf);//added statbuf
 	if (check_flags(flags, 'R'))
 		read_list_r(head, path, flags);
 	free_list(head);

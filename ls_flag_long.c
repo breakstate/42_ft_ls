@@ -27,6 +27,7 @@ void	get_stats(struct stat *statbuf)
 char	*get_perms(struct stat *statbuf)
 {
 	char *perms;
+	
 
 	printf("get_perms\n");
 	perms = (char *)malloc(sizeof(char) * 11);
