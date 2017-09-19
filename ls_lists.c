@@ -53,6 +53,9 @@ void			print_list(t_lslist *head, struct stat *statbuf)//added statbuf
 	while (current != NULL)
 	{
 		get_stats(statbuf);//testing L stuff
+		//don't send statbuf here, it never changes
+		//instead send updated d_name each time
+		//and refresh the statbuf
 		ft_putendl(current->data);
 		current = current->next;
 	}
