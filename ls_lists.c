@@ -50,7 +50,7 @@ void			list_add_back(t_lslist **head, char *data, char *flags)
 		stat(data, &statbuf);
 		*head = create_elem(data, stats = get_stats(&statbuf));
 	}
-	printf("  ->data  = %s\n  ->stats = %s\n\n", data, stats);
+	//printf("  ->data  = %s\n  ->stats = %s\n\n", data, stats);
 }
 
 void			print_list(t_lslist *head)//, struct stat *statbuf)//added statbuf
@@ -77,6 +77,7 @@ void			sort_list(t_lslist *head, char *flags)
 	int			sorted;
 	t_lslist	*current;
 	char		*tmp;
+	char		*tmp_stats;
 
 	current = head;
 	if (!(check_flags(flags, 'r')))
@@ -88,6 +89,10 @@ void			sort_list(t_lslist *head, char *flags)
 				tmp = current->data;
 				current->data = current->next->data;
 				current->next->data = tmp;
+
+				tmp_stats = current->stats;//too
+				current->stats = current->next->stats;//many
+				current->next->stats = tmp_stats;//lines
 			}
 			current = current->next;
 			if (current->next == NULL && sorted == 1)

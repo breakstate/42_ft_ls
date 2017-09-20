@@ -27,12 +27,8 @@ typedef struct		s_lslist
 {
 	char			*data;
 	char			*stats;
-	/*
-	char	file;
-	char	perms;
-	char?	nlinks;(padded)
-	char	usr_grp;
-	char?	size;(padded)
+	/* :::TO ADD::: (for sorting)
+	int		block; ()st_block
 	char	date/time;
 	*/
 	struct s_lslist	*next;
