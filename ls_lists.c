@@ -12,15 +12,16 @@
 
 #include "ft_ls.h"
 
-t_lslist		*create_elem(char *data, char* stats)
+t_lslist		*create_elem(char *data, char* stats, time_t mtime)
 {
 	t_lslist	*tmp;
 
 	tmp = (t_lslist *)malloc(sizeof(t_lslist));
 	if (tmp != NULL)
 	{
-		tmp->stats = stats;
-		tmp->data = data;
+		tmp->pack.stats = stats;
+		tmp->pack.data = data;
+		tmp->pack.mtime = mtime;
 		tmp->next = NULL;
 	}
 	return (tmp);
@@ -43,12 +44,12 @@ void			list_add_back(t_lslist **head, char *data, char *flags)
 			current = current->next;
 		}
 		stat(data, &statbuf);
-		current->next = create_elem(data, stats = get_stats(&statbuf));
+		current->next = create_elem(node);
 	}
 	else
 	{
 		stat(data, &statbuf);
-		*head = create_elem(data, stats = get_stats(&statbuf));
+		*head = create_elem(node);
 	}
 	//printf("  ->data  = %s\n  ->stats = %s\n\n", data, stats);
 }
@@ -66,8 +67,8 @@ void			print_list(t_lslist *head)//, struct stat *statbuf)//added statbuf
 		//and refresh the statbuf
 
 		//add if flag -l
-		ft_putstr(current->stats);
-		ft_putendl(current->data);
+		ft_putstr(current->pack.stats);
+		ft_putendl(current->pack.data);
 		current = current->next;
 	}
 }
@@ -75,36 +76,45 @@ void			print_list(t_lslist *head)//, struct stat *statbuf)//added statbuf
 void			sort_list(t_lslist *head, char *flags)
 {
 	int			sorted;
-	t_lslist	*current;
-	char		*tmp;
-	char		*tmp_stats;
+	t_lslist	*cur;
+	t_pack		*tmp;
 
-	current = head;
+	cur = head;
+	tmp = (t_pack*)malloc(sizeof(t_pack) * 1);
 	if (!(check_flags(flags, 'r')))
-		while (current->next)
+		while (cur->next)
 		{
-			if (ft_strcmp(current->data, current->next->data) > 0)
+			if (ft_strcmp(cur->pack.data, cur->next->pack.data) > 0)
 			{
 				sorted = 1;
-				tmp = current->data;
-				current->data = current->next->data;
-				current->next->data = tmp;
+				tmp = &(cur->pack);//not sure if & is correct
+				cur->pack = cur->next->pack;
+				(cur->next->pack) = *tmp;
 
-				tmp_stats = current->stats;//too
-				current->stats = current->next->stats;//many
-				current->next->stats = tmp_stats;//lines
+				//tmp_stats = cur->stats;//too
+				//cur->stats = cur->next->stats;//many
+				//cur->next->stats = tmp_stats;//lines
 			}
-			current = current->next;
-			if (current->next == NULL && sorted == 1)
+			cur = cur->next;
+			if (cur->next == NULL && sorted == 1)
 			{
-				current = head;
+				cur = head;
 				sorted = 0;
 			}
 		}
 	else
 		sort_list_r(head);
 }
+/*
+void	sort_list(t_lslist **head, char *flags)
+{
+	t_lslist	current;
+	t_lslist	prev_n;
+	t_lslist	next_n;
 
+	current 
+}
+*/
 void			free_list(t_lslist *head)
 {
 	t_lslist	*current;

@@ -23,10 +23,22 @@
 # include <time.h>
 # include <stdio.h>
 
-typedef struct		s_lslist
+# define node data, stats = get_stats(&statbuf), statbuf.st_mtime
+
+typedef struct		s_pack
 {
 	char			*data;
 	char			*stats;
+	time_t			mtime;
+}					t_pack;
+
+typedef struct		s_lslist
+{
+	t_pack			pack;
+	//char			*data;
+	//char			*stats;
+	//time_t			mtime;
+
 	/* :::TO ADD::: (for sorting)
 	int		block; ()st_block
 	char	date/time;
@@ -36,7 +48,7 @@ typedef struct		s_lslist
 
 typedef t_lslist	t_l;
 
-t_lslist			*create_elem(char *data, char *stats);
+t_lslist			*create_elem(char *data, char *stats, time_t mtime);
 void				list_add_back(t_lslist **head, char *data, char *flags);
 void				print_list(t_lslist *head);//, struct stat *statbuf);//added statbuff
 void				sort_list(t_lslist *head, char *flags);

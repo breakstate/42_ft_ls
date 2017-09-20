@@ -26,11 +26,11 @@ void	read_list_r(t_lslist *head, char *path, char *flags)
 	current = head;
 	while (current != NULL)
 	{
-		temp = temp_path(path, current->data);
-		if ((opendir(temp)) != NULL && (!(is_dot((current->data)))))//current->data[0] != '.')
+		temp = temp_path(path, current->pack.data);
+		if ((opendir(temp)) != NULL && (!(is_dot((current->pack.data)))))//current->data[0] != '.')
 		{
 			ft_putchar('\n');
-			ls_print(temp_path(path, current->data), flags);
+			ls_print(temp_path(path, current->pack.data), flags);
 		}
 		current = current->next;
 	}
