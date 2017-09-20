@@ -16,18 +16,17 @@ void		sort_list_r(t_lslist *head)
 {
 	int			sorted;
 	t_lslist	*current;
-	t_pack		*tmp;
+	t_pack		tmp;
 
 	current = head;
-	tmp = (t_pack*)malloc(sizeof(t_pack) * 1);
 	while (current->next)
 	{
 		if (ft_strcmp(current->pack.data, current->next->pack.data) < 0)
 		{
 			sorted = 1;
-			tmp = &(current->pack);
+			tmp = (current->pack);
 			current->pack = current->next->pack;
-			current->next->pack = *tmp;
+			current->next->pack = tmp;
 		}
 		current = current->next;
 		if (current->next == NULL && sorted == 0)
