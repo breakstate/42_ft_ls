@@ -23,6 +23,7 @@ t_lslist		*create_elem(char *data, char* stats, time_t mtime)
 		tmp->pack.data = data;
 		tmp->pack.mtime = mtime;
 		tmp->next = NULL;
+		printf("::::::data = %s\n", tmp->pack.data);//debug
 	}
 	return (tmp);
 }
@@ -77,24 +78,25 @@ void			sort_list(t_lslist *head, char *flags)
 {
 	int			sorted;
 	t_lslist	*cur;
-	t_pack		*tmp;
+	t_pack		tmp;
 
 	cur = head;
-	tmp = (t_pack*)malloc(sizeof(t_pack) * 1);
+	//tmp = (t_pack*)malloc(sizeof(t_pack) * 1);
 	if (!(check_flags(flags, 'r')))
 		while (cur->next)
 		{
 			if (ft_strcmp(cur->pack.data, cur->next->pack.data) > 0)
 			{
 				sorted = 1;
-				tmp = &(cur->pack);//not sure if & is correct
+				tmp = (cur->pack);//not sure if & is correct
 				cur->pack = cur->next->pack;
-				(cur->next->pack) = *tmp;
+				(cur->next->pack) = tmp;
 
 				//tmp_stats = cur->stats;//too
 				//cur->stats = cur->next->stats;//many
 				//cur->next->stats = tmp_stats;//lines
 			}
+			printf("cur.pack = %s\n", cur->pack.data);//debug
 			cur = cur->next;
 			if (cur->next == NULL && sorted == 1)
 			{
