@@ -55,7 +55,7 @@ void			list_add_back(t_lslist **head, char *data, char *flags)
 	//printf("  ->data  = %s\n  ->stats = %s\n\n", data, stats);
 }
 
-void			print_list(t_lslist *head)//, struct stat *statbuf)//added statbuf
+void			print_list(t_lslist *head, char *flags)//, struct stat *statbuf)//added statbuf
 {
 	t_lslist	*current;
 
@@ -67,50 +67,39 @@ void			print_list(t_lslist *head)//, struct stat *statbuf)//added statbuf
 		//instead send updated d_name each time
 		//and refresh the statbuf
 
-		//add if flag -l
-		ft_putstr(current->pack.stats);
+		if (check_flags(flags, 'l'))
+			ft_putstr(current->pack.stats);
 		ft_putendl(current->pack.data);
 		current = current->next;
 	}
 }
 
-void			sort_list(t_lslist *head, char *flags)
+void			sort_list(t_lslist *head)
 {
 	int			sorted;
 	t_lslist	*cur;
 	t_pack		tmp;
 
 	cur = head;
-	if (!(check_flags(flags, 'r')))
-		while (cur->next)
+	while (cur->next)
+	{
+		if (ft_strcmp(cur->pack.data, cur->next->pack.data) > 0)
 		{
-			if (ft_strcmp(cur->pack.data, cur->next->pack.data) > 0)
-			{
-				sorted = 1;
-				tmp = (cur->pack);//not sure if & is correct
-				cur->pack = cur->next->pack;
-				(cur->next->pack) = tmp;
-			}
-			cur = cur->next;
-			if (cur->next == NULL && sorted == 1)
-			{
-				cur = head;
-				sorted = 0;
-			}
+			sorted = 1;
+			tmp = (cur->pack);//not sure if & is correct
+			cur->pack = cur->next->pack;
+			(cur->next->pack) = tmp;
 		}
-	else
-		sort_list_r(head);
-}
-/*
-void	sort_list(t_lslist **head, char *flags)
-{
-	t_lslist	current;
-	t_lslist	prev_n;
-	t_lslist	next_n;
+		cur = cur->next;
+		if (cur->next == NULL && sorted == 1)
+		{
+			cur = head;
+			sorted = 0;
+		}
+	}
 
-	current 
 }
-*/
+
 void			free_list(t_lslist *head)
 {
 	t_lslist	*current;

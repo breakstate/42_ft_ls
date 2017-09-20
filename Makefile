@@ -12,6 +12,7 @@
 
 NAME = ft_ls
 
+
 SRC = ls_main.c \
 		ls_path_man.c \
 		ls_lists.c \
@@ -21,7 +22,8 @@ SRC = ls_main.c \
 		ls_flag_long.c \
 		ls_flags.c \
 		ls_flag_rev.c \
-		ls_flag_long_2.c
+		ls_flag_long_2.c \
+		ls_flag_time.c
 
 FLAGS = -Wall -Werror -Wextra
 
@@ -32,18 +34,16 @@ INCLUDES = -I ./libft/includes/
 all: $(NAME)
 
 $(NAME):
-	$(MAKE) -C libft
-	gcc -o $(NAME) $(SRC) $(FLAGS) $(LIBFT) $(INCLUDES)
+	gcc -o -g $(NAME) $(SRC) $(FLAGS) $(LIBFT) $(INCLUDES)
 
 lib:
-	$(MAKE) -C ./libft
+	$(MAKE) -C libft
 
 ft_ls:
 	gcc -o $(NAME) $(SRC) $(FLAGS) $(LIBFT) $(INCLUDES)
 
 clean:
 	rm -f $(NAME)
-	$(MAKE) clean -C ./libft
 
 fclean:	clean
 	$(MAKE) fclean -C ./libft

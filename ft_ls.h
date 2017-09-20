@@ -50,8 +50,8 @@ typedef t_lslist	t_l;
 
 t_lslist			*create_elem(char *data, char *stats, time_t mtime);
 void				list_add_back(t_lslist **head, char *data, char *flags);
-void				print_list(t_lslist *head);//, struct stat *statbuf);//added statbuff
-void				sort_list(t_lslist *head, char *flags);
+void				print_list(t_lslist *head, char *flags);//, struct stat *statbuf);//added statbuff
+void				sort_list(t_lslist *head);//, char *flags);
 void				sort_list_r(t_lslist *head);
 void				free_list(t_lslist *head);
 void				read_list_r(t_lslist *head, char *path, char *flags);
@@ -76,5 +76,7 @@ char				**no_args();
 char                **handle_flags(int argc, char **argv, char **flags, char **args);
 int                 verify_flags(char *flags);
 char	*get_size(struct stat *stabuf);
+void		sort_controller(t_lslist *head, char *flags);
+void		sort_list_time(t_lslist *head);
 
 #endif

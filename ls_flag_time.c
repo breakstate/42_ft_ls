@@ -2,14 +2,20 @@
 
 void		sort_controller(t_lslist *head, char *flags)
 {
-	if not r & not t
-		call normal sort 
-	else if r & not t 
-		call sort r 
-	else if t & not r 
-		call sort t 
-	else if t & r 
-		call t then r
+	if (!check_flags(flags, 'r') && !check_flags(flags, 't'))
+		sort_list(head);
+	else if (check_flags(flags, 'r') && !check_flags(flags, 't'))
+		sort_list_r(head);
+	else if (check_flags(flags, 't') && !check_flags(flags, 'r'))
+	{
+		sort_list(head);
+		sort_list_time(head);
+	}
+	else if (check_flags(flags, 'r') && check_flags(flags, 't'))
+	{
+		sort_list_time(head);
+		sort_list_r(head);
+	}
 }
 
 void		sort_list_time(t_lslist *head)
@@ -21,7 +27,7 @@ void		sort_list_time(t_lslist *head)
 	current = head;
 	while (current->next)
 	{
-		if ((current->pack.mtime > current->next->pack.mtime))
+		if ((current->pack.mtime < current->next->pack.mtime))
 		{
 			sorted = 1;
 			tmp = (current->pack);
