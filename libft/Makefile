@@ -6,7 +6,7 @@
 #    By: bmoodley <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/05/29 15:02:38 by bmoodley          #+#    #+#              #
-#    Updated: 2017/07/01 20:16:15 by bmoodley         ###   ########.fr        #
+#    Updated: 2017/09/20 11:58:07 by bmoodley         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRC = ft_isascii.c\
 	  ft_putendl_fd.c\
 	  ft_strclr.c\
 	  ft_strjoin.c\
+	  ft_strjoin_f.c\
 	  ft_strnew.c\
 	  ft_strsub.c\
 	  ft_putchar.c\

@@ -12,13 +12,14 @@
 
 #include "ft_ls.h"
 
-t_lslist		*create_elem(char *data)
+t_lslist		*create_elem(char *data, char* stats)
 {
 	t_lslist	*tmp;
 
 	tmp = (t_lslist *)malloc(sizeof(t_lslist));
 	if (tmp != NULL)
 	{
+		tmp->stats = stats;
 		tmp->data = data;
 		tmp->next = NULL;
 	}
@@ -28,6 +29,8 @@ t_lslist		*create_elem(char *data)
 void			list_add_back(t_lslist **head, char *data, char *flags)
 {
 	t_lslist	*current;
+	struct stat		statbuf;
+	char *stats;
 
 	current = *head;
 	if (!(check_flags(flags, 'a')))
@@ -39,23 +42,31 @@ void			list_add_back(t_lslist **head, char *data, char *flags)
 		{
 			current = current->next;
 		}
-		current->next = create_elem(data);
+		stat(data, &statbuf);
+		current->next = create_elem(data, stats = get_stats(&statbuf));
 	}
 	else
-		*head = create_elem(data);
+	{
+		stat(data, &statbuf);
+		*head = create_elem(data, stats = get_stats(&statbuf));
+	}
+	printf("  ->data  = %s\n  ->stats = %s\n\n", data, stats);
 }
 
-void			print_list(t_lslist *head, struct stat *statbuf)//added statbuf
+void			print_list(t_lslist *head)//, struct stat *statbuf)//added statbuf
 {
 	t_lslist	*current;
 
 	current = head;
 	while (current != NULL)
 	{
-		get_stats(statbuf);//testing L stuff
+		//get_stats(statbuf);//testing L stuff - should probs be in list_add_back
 		//don't send statbuf here, it never changes
 		//instead send updated d_name each time
 		//and refresh the statbuf
+
+		//add if flag -l
+		ft_putstr(current->stats);
 		ft_putendl(current->data);
 		current = current->next;
 	}

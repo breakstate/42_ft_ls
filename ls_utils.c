@@ -17,10 +17,10 @@
 **	calls other functions to save lines
 */
 
-void		cleanup(t_lslist *head, DIR **dir_ptr, char *path, char *flags, struct stat *statbuf)//added statbuf
+void		cleanup(t_lslist *head, DIR **dir_ptr, char *path, char *flags)//, struct stat *statbuf)//added statbuf
 {
 	sort_list(head, flags);
-	print_list(head, statbuf);//added statbuf
+	print_list(head);//, statbuf);//added statbuf
 	dir_reset(dir_ptr, path);
 	//	read_list(head, path);
 	//	free_list(head);

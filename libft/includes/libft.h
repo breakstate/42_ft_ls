@@ -6,7 +6,7 @@
 /*   By: bmoodley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/29 15:36:47 by bmoodley          #+#    #+#             */
-/*   Updated: 2017/07/01 21:25:54 by bmoodley         ###   ########.fr       */
+/*   Updated: 2017/09/20 11:58:27 by bmoodley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	ft_putendl(char const *s);
 void	ft_putendl_fd(char const *s, int fd);
 void	ft_strclr(char *s);
 char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin_f(char *s1, char const *s2);
 char	*ft_strnew(size_t size);
 char	*ft_strsub(char const *s, unsigned int start, size_t len);
 void	ft_putchar(char c);

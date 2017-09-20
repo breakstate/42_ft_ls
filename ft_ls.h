@@ -26,14 +26,23 @@
 typedef struct		s_lslist
 {
 	char			*data;
+	char			*stats;
+	/*
+	char	file;
+	char	perms;
+	char?	nlinks;(padded)
+	char	usr_grp;
+	char?	size;(padded)
+	char	date/time;
+	*/
 	struct s_lslist	*next;
 }					t_lslist;
 
 typedef t_lslist	t_l;
 
-t_lslist			*create_elem(char *data);
+t_lslist			*create_elem(char *data, char *stats);
 void				list_add_back(t_lslist **head, char *data, char *flags);
-void				print_list(t_lslist *head, struct stat *statbuf);//added statbuff
+void				print_list(t_lslist *head);//, struct stat *statbuf);//added statbuff
 void				sort_list(t_lslist *head, char *flags);
 void				sort_list_r(t_lslist *head);
 void				free_list(t_lslist *head);
@@ -41,13 +50,13 @@ void				read_list_r(t_lslist *head, char *path, char *flags);
 char				*temp_path(char *path, char *d_name);
 char				*append_path(char *path, char *new_path);
 void				ls_print(char *path, char *flags);
-void				cleanup(t_l *head, DIR **dir_ptr, char *path, char *flags, struct stat *statbuf);//added statbuf
+void				cleanup(t_l *head, DIR **dir_ptr, char *path, char *flags);//, struct stat *statbuf);//added statbuf
 void				dir_reset(DIR **dir_ptr, char *path);
 int					is_dot(char *d_name);
 int					is_hidden(char *d_name);
 void				print_path(char *path);
 void				list_rev(t_lslist **head);
-void				get_stats(struct stat *statbuf);
+char				*get_stats(struct stat *statbuf);
 char				*get_perms(struct stat *statbuf);
 char				*get_nlinks(struct stat *statbuf);
 char				*get_usr_grp(struct stat *statbuf);
@@ -58,5 +67,6 @@ char				*get_flags(int argc, char **argv, char **flags);
 char				**no_args();
 char                **handle_flags(int argc, char **argv, char **flags, char **args);
 int                 verify_flags(char *flags);
+char	*get_size(struct stat *stabuf);
 
 #endif

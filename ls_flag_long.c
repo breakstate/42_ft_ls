@@ -15,13 +15,25 @@
 
 #include "ft_ls.h"
 
-void	get_stats(struct stat *statbuf)
+char	*get_stats(struct stat *statbuf)//might need temp or freeing funciton
 {
-	//printf("entered get_stats\n");//remove debug
-	printf("%s ", get_perms(statbuf));
-	//printf("%s\n", get_nlinks(statbuf));
-	printf("%s ", get_usr_grp(statbuf));
-	printf("%s\n", get_mtime(statbuf));
+	char	*stats;
+	char	*str;
+	stats = (char *)malloc(sizeof(char) * 1);
+	stats[0] = '\0';
+	stats = ft_strjoin_f(stats, ft_strjoin(" ", str = get_perms(statbuf)));
+	//free(str);
+	stats = ft_strjoin_f(stats, ft_strjoin(" ", str = get_nlinks(statbuf)));
+	//free(str);
+	stats = ft_strjoin_f(stats, ft_strjoin(" ", str = get_usr_grp(statbuf)));
+	//free(str);
+	stats = ft_strjoin_f(stats, ft_strjoin(" ", str = get_size(statbuf)));
+	//free(str);
+	stats = ft_strjoin_f(stats, ft_strjoin("\t", str = get_mtime(statbuf)));
+	stats = ft_strjoin_f(stats, " ");
+	//free(str);
+	//free after?
+	return (stats);
 }
 
 char	*get_perms(struct stat *statbuf)
@@ -50,11 +62,24 @@ char	*get_perms(struct stat *statbuf)
 
 char	*get_nlinks(struct stat *statbuf)
 {
-	char *nlink;
+	char	*nlink;
+	char	*new_nlink;
+	int		len;
+	int		i;
 
-	nlink = ft_itoa(statbuf->st_nlink);
-	printf("%s\n", nlink);
-	return (nlink);
+	i = 2;
+	nlink = ft_itoa(statbuf->st_nlink);//free since itoa uses malloc!
+	len = ft_strlen(nlink);
+	new_nlink = ft_memalloc(sizeof(char) * 4);
+	ft_memset((void*)new_nlink, ' ', 3);
+	while (len > 0)
+	{
+		new_nlink[i] = nlink[len - 1];
+		i--;
+		len--;
+	}
+	free(nlink);
+	return (new_nlink);
 }
 
 char	*get_usr_grp(struct stat *statbuf)
