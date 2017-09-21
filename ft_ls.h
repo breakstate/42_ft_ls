@@ -30,6 +30,7 @@ typedef struct		s_pack
 	char			*data;
 	char			*stats;
 	time_t			mtime;
+	char			*path;
 }					t_pack;
 
 typedef struct		s_lslist
@@ -49,7 +50,7 @@ typedef struct		s_lslist
 typedef t_lslist	t_l;
 
 t_lslist			*create_elem(char *data, char *stats, time_t mtime);
-void				list_add_back(t_lslist **head, char *data, char *flags);
+void				list_add_back(t_lslist **head, char *data, char *path);//, char *flags);
 void				print_list(t_lslist *head, char *flags);//, struct stat *statbuf);//added statbuff
 void				sort_list(t_lslist *head);//, char *flags);
 void				sort_list_r(t_lslist *head);
@@ -78,5 +79,6 @@ int                 verify_flags(char *flags);
 char	*get_size(struct stat *stabuf);
 void		sort_controller(t_lslist *head, char *flags);
 void		sort_list_time(t_lslist *head);
+int		is_empty_dir(char *path);
 
 #endif

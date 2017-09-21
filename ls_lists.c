@@ -27,29 +27,43 @@ t_lslist		*create_elem(char *data, char* stats, time_t mtime)
 	}
 	return (tmp);
 }
+/*
+"."
+"./libft"
+fs_ls(char *dir, lst)
+{
+	save(lst)
+	sort
+	print
+	recurse
+}
+*/
 
-void			list_add_back(t_lslist **head, char *data, char *flags)
+void			list_add_back(t_lslist **head, char *data, char *path)//, char *flags)
 {
 	t_lslist	*current;
 	struct stat		statbuf;
 	char *stats;
+	char *fullpath;
 
 	current = *head;
-	if (!(check_flags(flags, 'a')))
+	/*if (!(check_flags(flags, 'a')))//DONT DO THIS HERE YA COOT
 		if (data[0] == '.')
-			return ;
+			return ;*/
 	if (current != NULL)
 	{
 		while (current->next != NULL)
 		{
 			current = current->next;
 		}
-		stat(data, &statbuf);
+		fullpath = ft_strjoin(path, ft_strjoin("/", data));
+		stat(fullpath, &statbuf);
 		current->next = create_elem(node);
 	}
 	else
 	{
-		stat(data, &statbuf);
+		fullpath = ft_strjoin(path, ft_strjoin("/", data));
+		stat(fullpath, &statbuf);
 		*head = create_elem(node);
 	}
 	//printf("  ->data  = %s\n  ->stats = %s\n\n", data, stats);
@@ -67,10 +81,25 @@ void			print_list(t_lslist *head, char *flags)//, struct stat *statbuf)//added s
 		//instead send updated d_name each time
 		//and refresh the statbuf
 
-		if (check_flags(flags, 'l'))
-			ft_putstr(current->pack.stats);
-		ft_putendl(current->pack.data);
-		current = current->next;
+		//add hidden file check!!!!!
+		//remember to exlude "." and ".." when looking for hidden files.
+		if (check_flags(flags, 'a'))
+		{
+			if (check_flags(flags, 'l'))
+				ft_putstr(current->pack.stats);
+			ft_putendl(current->pack.data);
+			current = current->next;
+		}
+		else
+		{
+			if(!is_hidden(current->pack.data))
+			{
+				if (check_flags(flags, 'l'))
+					ft_putstr(current->pack.stats);
+				ft_putendl(current->pack.data);
+			}
+				current = current->next;
+		}
 	}
 }
 

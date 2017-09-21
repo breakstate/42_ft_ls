@@ -24,6 +24,8 @@ void	ls_print(char *path, char *flags)
 	struct dirent	*cur_dir;
 	t_lslist		*head;
 
+	//printf("   path = %s\n", path);//debug
+
 	dir_ptr = NULL;
 	cur_dir = NULL;
 	head = NULL;
@@ -31,7 +33,11 @@ void	ls_print(char *path, char *flags)
 	{
 		print_path(path);
 		while ((cur_dir = readdir(dir_ptr)))
-			list_add_back(&head, cur_dir->d_name, flags);
+		{
+			//if ((is_empty_dir(cur_dir->d_name, path)) == 0)
+
+				list_add_back(&head, cur_dir->d_name, path);//, flags);
+			}
 	}
 	else
 	{

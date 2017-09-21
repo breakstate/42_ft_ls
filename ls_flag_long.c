@@ -22,16 +22,16 @@ char	*get_stats(struct stat *statbuf)//might need temp or freeing funciton
 	stats = (char *)malloc(sizeof(char) * 1);
 	stats[0] = '\0';
 	stats = ft_strjoin_f(stats, ft_strjoin(" ", str = get_perms(statbuf)));
-	//free(str);
+	free(str);
 	stats = ft_strjoin_f(stats, ft_strjoin(" ", str = get_nlinks(statbuf)));
-	//free(str);
+	free(str);
 	stats = ft_strjoin_f(stats, ft_strjoin(" ", str = get_usr_grp(statbuf)));
-	//free(str);
+	free(str);
 	stats = ft_strjoin_f(stats, ft_strjoin(" ", str = get_size(statbuf)));
-	//free(str);
+	free(str);
 	stats = ft_strjoin_f(stats, ft_strjoin("\t", str = get_mtime(statbuf)));
 	stats = ft_strjoin_f(stats, " ");
-	//free(str);
+	free(str);
 	//free after?
 	return (stats);
 }
