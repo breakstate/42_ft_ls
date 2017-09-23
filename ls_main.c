@@ -23,8 +23,7 @@ void	ls_print(char *path, char *flags)
 	DIR				*dir_ptr;
 	struct dirent	*cur_dir;
 	t_lslist		*head;
-
-	//printf("   path = %s\n", path);//debug
+	printf("   path = %s\n", path);//debug
 
 	dir_ptr = NULL;
 	cur_dir = NULL;
@@ -34,10 +33,13 @@ void	ls_print(char *path, char *flags)
 		print_path(path);
 		while ((cur_dir = readdir(dir_ptr)))
 		{
+			if (!cur_dir)
+				printf("cur_dir = %s\n", cur_dir->d_name);
 			//if ((is_empty_dir(cur_dir->d_name, path)) == 0)
-
-				list_add_back(&head, cur_dir->d_name, path);//, flags);
-			}
+			printf("  |added to list:\n");
+			printf("  |head = %p\n  |d_name = %s\n  |path = %s\n\n", head, cur_dir->d_name, path);
+			list_add_back(&head, cur_dir->d_name, path);//, flags);
+		}
 	}
 	else
 	{
@@ -46,9 +48,10 @@ void	ls_print(char *path, char *flags)
 		return ;
 	}
 	cleanup(head, &dir_ptr, path, flags);
-	if (check_flags(flags, 'R'))
+	if (check_flags(flags, 'R') && (cur_dir->d_name) != NULL)//added check for null data
 		read_list_r(head, path, flags);
-	free_list(head);
+	//free_list(head);
+	printf("done?? ");
 }
 
 /*

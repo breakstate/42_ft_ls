@@ -82,3 +82,9 @@ void		sort_list_time(t_lslist *head);
 int		is_empty_dir(char *path);
 
 #endif
+/*
+**	#define	S_ISDIR(m)	((m & 0170000) == 0040000)	
+**	okay so is_dir is replaced by the expression in brackets,
+**	m is the parameter to be used within the brackets as well.
+**	only certain bits will match and result in 40000 when is directory
+*/

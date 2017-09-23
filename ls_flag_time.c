@@ -2,17 +2,26 @@
 
 void		sort_controller(t_lslist *head, char *flags)
 {
-	if (!check_flags(flags, 'r') && !check_flags(flags, 't'))
-		sort_list(head);
-	else if (check_flags(flags, 'r') && !check_flags(flags, 't'))
-		sort_list_r(head);
-	else if (check_flags(flags, 't') && !check_flags(flags, 'r'))
+	printf("SORT CONTROLLER\n");
+	if (check_flags(flags, 'r') == 0 && check_flags(flags, 't') == 0)
 	{
+		printf("     neither\n");//debug
+		sort_list(head);
+	}
+	else if (check_flags(flags, 'r') && check_flags(flags, 't') == 0)
+	{
+		printf("     just r\n");//debug
+		sort_list_r(head);//needs address
+	}
+	else if (check_flags(flags, 't') && check_flags(flags, 'r') == 0)
+	{
+		printf("     just t\n");//debug
 		sort_list(head);
 		sort_list_time(head);
 	}
 	else if (check_flags(flags, 'r') && check_flags(flags, 't'))
 	{
+		printf("     both\n");//debug
 		sort_list_time(head);
 		sort_list_r(head);
 	}

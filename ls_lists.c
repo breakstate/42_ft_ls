@@ -56,7 +56,7 @@ void			list_add_back(t_lslist **head, char *data, char *path)//, char *flags)
 		{
 			current = current->next;
 		}
-		fullpath = ft_strjoin(path, ft_strjoin("/", data));
+		fullpath = ft_strjoin(path, ft_strjoin("/", data));//maybe strjoin_f
 		stat(fullpath, &statbuf);
 		current->next = create_elem(node);
 	}
@@ -66,14 +66,15 @@ void			list_add_back(t_lslist **head, char *data, char *path)//, char *flags)
 		stat(fullpath, &statbuf);
 		*head = create_elem(node);
 	}
-	//printf("  ->data  = %s\n  ->stats = %s\n\n", data, stats);
+	printf("  ->data  = %s\n  ->stats = %s\n\n", data, stats);
 }
-
+/*
 void			print_list(t_lslist *head, char *flags)//, struct stat *statbuf)//added statbuf
 {
 	t_lslist	*current;
 
 	current = head;
+	(void)flags;
 	while (current != NULL)
 	{
 		//get_stats(statbuf);//testing L stuff - should probs be in list_add_back
@@ -102,7 +103,7 @@ void			print_list(t_lslist *head, char *flags)//, struct stat *statbuf)//added s
 		}
 	}
 }
-
+*/
 void			sort_list(t_lslist *head)
 {
 	int			sorted;
