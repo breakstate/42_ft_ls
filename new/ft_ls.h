@@ -60,7 +60,7 @@ void				read_list_r(t_lslist *head, char *path, char *flags);
 char				*temp_path(char *path, char *d_name);
 char				*append_path(char *path, char *new_path);
 void				ls_loop(char *path, char *flags);
-void				cleanup(t_l *head,/* DIR **dir_ptr, char *path,*/ char *flags);//, struct stat *statbuf);//added statbuf
+void				cleanup(t_l *head,/* DIR **dir_ptr,*/ char *path, char *flags);//, struct stat *statbuf);//added statbuf
 void				dir_reset(DIR **dir_ptr, char *path);
 int					is_dot(char *d_name);
 int					is_hidden(char *d_name);
@@ -81,6 +81,8 @@ char	*get_size(struct stat *stabuf);
 void		sort_controller(t_lslist *head, char *flags);
 void		sort_list_time(t_lslist *head);
 int		not_empty_dir(char *path);
+void	init_to_null(DIR **d_ptr, struct dirent **c, t_lslist **h);
+void		nl_print_path(char *path);
 
 #endif
 /*

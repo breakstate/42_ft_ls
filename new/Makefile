@@ -20,6 +20,7 @@ SRC = LS_main.c \
 		LS_path_man.c \
 		LS_sorting.c \
 		LS_utils.c \
+		LS_utils_2.c \
 		LS_lists.c
 
 FLAGS = -Wall -Werror -Wextra
