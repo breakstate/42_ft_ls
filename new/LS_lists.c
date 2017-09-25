@@ -70,7 +70,7 @@ void			print_list(t_lslist *current, char *flags)//, struct stat *statbuf)//adde
 	{
 		//add hidden file check!!!!!
 		//remember to exlude "." and ".." when looking for hidden files.
-		if (flags && !(is_hidden(current->pack.data)))
+		if (flags && (is_hidden(current->pack.data) == 0))
 		{
 			ft_putstr(">>>");
 			ft_putendl(current->pack.data);

@@ -2,6 +2,7 @@
 
 void		sort_controller(t_lslist *head, char *flags)
 {
+	sort_list(head);
 	return ;//debug
 	printf("SORT CONTROLLER\n");
 	if (check_flags(flags, 'r') == 0 && check_flags(flags, 't') == 0)
@@ -53,6 +54,7 @@ void		sort_list_time(t_lslist *head)
 			sorted = 0;
 		}
 	}
+	sorted = 0;
 }
 
 void		sort_list_r(t_lslist *head)
@@ -80,6 +82,7 @@ void		sort_list_r(t_lslist *head)
 			sorted = 0;
 		}
 	}
+	sorted = 0;
 }
 
 void			sort_list(t_lslist *head)
@@ -105,4 +108,5 @@ void			sort_list(t_lslist *head)
 			sorted = 0;
 		}
 	}
+	sorted = 0;
 }

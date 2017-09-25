@@ -20,7 +20,7 @@ void	read_list_r(t_lslist *head, char *path, char *flags)
 		temp = temp_path(path, current->pack.data);
 		//printf("[]temp = %s\n", temp);
 		//check for hidden?
-		if ((opendir(temp)) != NULL && (!(is_dot((current->pack.data)))))//current->data[0] != '.')
+		if ((opendir(temp)) != NULL && (!(is_dot((current->pack.data)))) && !(is_hidden(current->pack.data)))//current->data[0] != '.')
 		{
 			if (not_empty_dir(temp))
 			{
