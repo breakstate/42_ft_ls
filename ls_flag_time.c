@@ -2,6 +2,7 @@
 
 void		sort_controller(t_lslist *head, char *flags)
 {
+	return ;//debug
 	printf("SORT CONTROLLER\n");
 	if (check_flags(flags, 'r') == 0 && check_flags(flags, 't') == 0)
 	{

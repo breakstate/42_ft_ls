@@ -28,9 +28,9 @@ void	read_list_r(t_lslist *head, char *path, char *flags)
 	while (current != NULL)
 	{
 		//printf("debug = %d\n", debug++);//debug
-		printf("data = |%s|\n", current->pack.data);
+		printf("[]data = |%s|\n", current->pack.data);
 		temp = temp_path(path, current->pack.data);
-		//printf("temp = %s\n", temp);
+		printf("[]temp = %s\n", temp);
 		//check for hidden?
 		if ((opendir(temp)) != NULL && (!(is_dot((current->pack.data)))))//current->data[0] != '.')
 		{
@@ -38,7 +38,8 @@ void	read_list_r(t_lslist *head, char *path, char *flags)
 			{
 				//printf("if\n");
 				ft_putchar('\n');
-				ls_print(temp_path(path, current->pack.data), flags);
+				printf("--------->%s\n", temp_path(path, current->pack.data));
+				ls_print(temp/*temp_path(path, current->pack.data)*/, flags);
 			}
 			else
 			{

@@ -36,8 +36,8 @@ void	ls_print(char *path, char *flags)
 			if (!cur_dir)
 				printf("cur_dir = %s\n", cur_dir->d_name);
 			//if ((is_empty_dir(cur_dir->d_name, path)) == 0)
-			printf("  |added to list:\n");
-			printf("  |head = %p\n  |d_name = %s\n  |path = %s\n\n", head, cur_dir->d_name, path);
+			//printf("  |added to list:\n");
+			//printf("  |head = %p\n  |d_name = %s\n  |path = %s\n\n", head, cur_dir->d_name, path);
 			list_add_back(&head, cur_dir->d_name, path);//, flags);
 		}
 	}

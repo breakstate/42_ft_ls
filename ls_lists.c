@@ -15,6 +15,7 @@
 t_lslist		*create_elem(char *data, char* stats, time_t mtime)
 {
 	t_lslist	*tmp;
+	int	debug = 0;
 
 	tmp = (t_lslist *)malloc(sizeof(t_lslist));
 	if (tmp != NULL)
@@ -23,7 +24,7 @@ t_lslist		*create_elem(char *data, char* stats, time_t mtime)
 		tmp->pack.data = data;
 		tmp->pack.mtime = mtime;
 		tmp->next = NULL;
-		//printf("::::::data = %s\n", tmp->pack.data);//debug
+		printf("::::::data = %s, debug = %d\n", tmp->pack.data, debug);//debug
 	}
 	return (tmp);
 }
@@ -45,7 +46,8 @@ void			list_add_back(t_lslist **head, char *data, char *path)//, char *flags)
 	struct stat		statbuf;
 	char *stats;
 	char *fullpath;
-
+	int	debug = 0;
+	printf("lst+add+back\n");
 	current = *head;
 	/*if (!(check_flags(flags, 'a')))//DONT DO THIS HERE YA COOT
 		if (data[0] == '.')
@@ -56,40 +58,40 @@ void			list_add_back(t_lslist **head, char *data, char *path)//, char *flags)
 		{
 			current = current->next;
 		}
-		fullpath = ft_strjoin(path, ft_strjoin("/", data));//maybe strjoin_f
+		fullpath = temp_path(path, data);
+		//fullpath = ft_strjoin(path, ft_strjoin("/", data));//maybe strjoin_f
 		stat(fullpath, &statbuf);
 		current->next = create_elem(node);
 	}
 	else
 	{
-		fullpath = ft_strjoin(path, ft_strjoin("/", data));
+		fullpath = temp_path(path, data);
+		//fullpath = ft_strjoin(path, ft_strjoin("/", data));
 		stat(fullpath, &statbuf);
 		*head = create_elem(node);
 	}
-	printf("  ->data  = %s\n  ->stats = %s\n\n", data, stats);
-}
-/*
-void			print_list(t_lslist *head, char *flags)//, struct stat *statbuf)//added statbuf
-{
-	t_lslist	*current;
+	//printf("  ->full = %s\n  ->path = %s\n  ->data = %s\n\n", fullpath, path, data);
+	printf("  ->data  = %s\n  ->stats = %s\n  ->debug = %d\n\n", data, stats, debug++);
+}//node = data, stats = get_stats(&statbuf), statbuf.st_mtime
 
-	current = head;
-	(void)flags;
+void			print_list(t_lslist *current, char *flags)//, struct stat *statbuf)//added statbuf
+{
+	int	debug = 0;
 	while (current != NULL)
 	{
-		//get_stats(statbuf);//testing L stuff - should probs be in list_add_back
-		//don't send statbuf here, it never changes
-		//instead send updated d_name each time
-		//and refresh the statbuf
-
+		printf("debug = %d\n", debug++);
 		//add hidden file check!!!!!
 		//remember to exlude "." and ".." when looking for hidden files.
-		if (check_flags(flags, 'a'))
+		if (flags)
+		{
+			ft_putstr(">>>");
+			ft_putendl(current->pack.data);
+		}
+/*		if (check_flags(flags, 'a'))
 		{
 			if (check_flags(flags, 'l'))
 				ft_putstr(current->pack.stats);
 			ft_putendl(current->pack.data);
-			current = current->next;
 		}
 		else
 		{
@@ -99,11 +101,11 @@ void			print_list(t_lslist *head, char *flags)//, struct stat *statbuf)//added s
 					ft_putstr(current->pack.stats);
 				ft_putendl(current->pack.data);
 			}
-				current = current->next;
-		}
+		}*/
+		current = current->next;
 	}
 }
-*/
+
 void			sort_list(t_lslist *head)
 {
 	int			sorted;
