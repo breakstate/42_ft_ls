@@ -12,6 +12,18 @@
 
 #include "ft_ls.h"
 
+/*
+**	not_empty_dir()
+**	print_path()
+**	handle_args()
+**	handle_flags()
+**	no_args()
+*/
+
+/*
+**	checks if the path specified lead to a directory
+*/
+
 int		not_empty_dir(char *path)
 {
 	int		i;
@@ -28,17 +40,6 @@ int		not_empty_dir(char *path)
 		closedir(dir_ptr);
 	}
 	return (i);
-	/*
-	//char *fullpath;
-	struct stat statbuf;
-	int		nlink;
-	
-	//fullpath = ft_strjoin(path, ft_strjoin("/", data));
-	stat(path, &statbuf);
-	if ((nlink = (statbuf.st_nlink)) == 2)
-		return (1);
-	return (0);
-	*/
 }
 
 /*

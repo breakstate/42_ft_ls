@@ -14,6 +14,11 @@
 
 /*
 **	check_flags()
+**	verify_flags()
+*/
+
+/*
+**	check_flags()
 **	returns 1 if specified flag is found in flag string
 */
 

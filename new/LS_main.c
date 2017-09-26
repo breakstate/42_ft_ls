@@ -6,38 +6,31 @@
 **	when -R flag is present
 */
 
-void	read_list_r(t_lslist *head, char *path, char *flags)
+void	read_list_r(t_lslist *current, char *path, char *flags)
 {
-	t_lslist	*current;
-	char		*temp;
+	char		*fullpath;
 	struct stat	statbuf;
-	//int	debug = 0;
 
-	current = head;
 	while (current != NULL)
 	{
-		//printf("debug = %d\n", debug++);//debug
-		//printf("[]data = |%s|\n", current->pack.data);
-		temp = temp_path(path, current->pack.data);
-		stat(temp, &statbuf);//check lstat in print function
-		//printf("[]temp = %s\n", temp);
-		//check for hidden?
-		if (statbuf.st_mode & S_IFDIR /*((opendir(temp)) != NULL */&& (!(is_dot((current->pack.data)))) && !(is_hidden(current->pack.data)))//forced to ignore all hidden files.
+		fullpath = temp_path(path, current->pack.data);
+		stat(fullpath, &statbuf);
+		if ((statbuf.st_mode & S_IFDIR) && (!(is_hidden((current->pack.data)))))// changed from is_dot
 		{
-			if (not_empty_dir(temp))
+			if (not_empty_dir(fullpath))
 			{
-				printf("\n\n TEMP = %s\n\n\n", temp);
 				ft_putchar('\n');
-				//printf("--------->%s\n", temp_path(path, current->pack.data));
-				ls_loop(temp/*temp_path(path, current->pack.data)*/, flags);
+				ls_loop(fullpath, flags);
 			}
 			else
-				nl_print_path(temp);
+				nl_print_path(fullpath);
 		}
-		temp = NULL;
+		free(fullpath);
 		current = current->next;
 	}
-	//free_list(head); HERE IS RIGHT
+	//free(fullpath);
+
+	//free_list(current); //HERE IS RIGHT
 	//printf nulled out
 }
 
@@ -63,12 +56,11 @@ void	ls_loop(char *path, char *flags)
 	t_lslist		*head;
 
 	init_to_null(&dir_ptr, &cur_dir, &head);
-	//if s_isdir here as well? what if you're given a symbolic link
 	if ((dir_ptr = opendir(path)) != NULL)
 	{
 		print_path(path);
 		while ((cur_dir = readdir(dir_ptr)))
-			list_add_back(&head, cur_dir->d_name, path);
+			list_add_back(&head, cur_dir->d_name, path, flags);
 	}
 	else
 	{
@@ -77,7 +69,9 @@ void	ls_loop(char *path, char *flags)
 		return ;
 	}
 	cleanup(head, /*&dir_ptr,*/ path, flags);
-	printf("done?? ");
+	free_list(&head);
+	closedir(dir_ptr);
+	//printf("done?? ");
 }
 
 int		main(int argc, char **argv)

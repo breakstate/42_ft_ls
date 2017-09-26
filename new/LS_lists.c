@@ -12,16 +12,19 @@
 
 #include "ft_ls.h"
 
-t_lslist		*create_elem(char *data, char* stats, time_t mtime)
+t_lslist		*create_elem(char *data, char* stats, time_t mtime, char *flags)
 {
 	t_lslist	*tmp;
 
 	tmp = (t_lslist *)malloc(sizeof(t_lslist));
 	if (tmp != NULL)
 	{
-		tmp->pack.stats = stats;
 		tmp->pack.data = data;
-		tmp->pack.mtime = mtime;
+		if (check_flags(flags, 'l'))
+		{
+			tmp->pack.stats = stats;
+			tmp->pack.mtime = mtime;
+		}
 		tmp->next = NULL;
 	}
 	return (tmp);
@@ -38,31 +41,28 @@ fs_ls(char *dir, lst)
 }
 */
 
-void			list_add_back(t_lslist **head, char *data, char *path)//, char *flags)
+void			list_add_back(t_l **head, char *data, char *path, char *flags)//, char *flags)
 {
 	t_lslist		*current;
 	struct stat		statbuf;
 	char			*stats;
+	char			*fullpath;
 
 	current = *head;
-	/*if (!(check_flags(flags, 'a')))//DONT DO THIS HERE YA COOT
-		if (data[0] == '.')
-			return ;*/
 	if (current != NULL)
 	{
 		while (current->next != NULL)
 			current = current->next;
-		stat(temp_path(path, data), &statbuf);
+		lstat((fullpath = temp_path(path, data)), &statbuf);
 		current->next = create_elem(node);
 	}
 	else
 	{
-		stat(temp_path(path, data), &statbuf);
+		lstat((fullpath = temp_path(path, data)), &statbuf);
 		*head = create_elem(node);
 	}
-	//printf("  ->full = %s\n  ->path = %s\n  ->data = %s\n\n", fullpath, path, data);
-	//printf("  ->data  = %s\n  ->stats = %s\n  ->debug = %d\n\n", data, stats, debug++);
-}//node = data, stats = get_stats(&statbuf), statbuf.st_mtime
+	free(fullpath);
+}
 
 void			print_list(t_lslist *current, char *flags)//, struct stat *statbuf)//added statbuf
 {
@@ -70,12 +70,12 @@ void			print_list(t_lslist *current, char *flags)//, struct stat *statbuf)//adde
 	{
 		//add hidden file check!!!!!
 		//remember to exlude "." and ".." when looking for hidden files.
-		if (flags && (is_hidden(current->pack.data) == 0))
-		{
-			ft_putstr(">>>");
-			ft_putendl(current->pack.data);
-		}
-/*		if (check_flags(flags, 'a'))
+
+//		if (check_flags(flags, 'a'))
+//			ft_putendl(current->pack.data);
+//		else
+
+		if (check_flags(flags, 'a'))
 		{
 			if (check_flags(flags, 'l'))
 				ft_putstr(current->pack.stats);
@@ -89,17 +89,17 @@ void			print_list(t_lslist *current, char *flags)//, struct stat *statbuf)//adde
 					ft_putstr(current->pack.stats);
 				ft_putendl(current->pack.data);
 			}
-		}*/
+		}
 		current = current->next;
 	}
 }
 
-void			free_list(t_lslist *head)
+void			free_list(t_lslist **head)
 {
 	t_lslist	*current;
 	t_lslist	*next;
 
-	current = head;
+	current = *head;
 	while (current != NULL)
 	{
 		next = current->next;

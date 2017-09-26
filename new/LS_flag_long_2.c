@@ -1,5 +1,9 @@
 #include "ft_ls.h"
 
+/*
+**	get_size()
+*/
+
 char	*get_size(struct stat *statbuf)
 {
 	char	*size;

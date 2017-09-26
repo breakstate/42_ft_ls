@@ -14,24 +14,22 @@
 
 /*
 **	temp_path()
+**	dir_reset()
+**	is_dot()
+**	is_hidden()
+*/
+
+/*
+**	temp_path()
 **	gives makes temporary path string for recrsive reading
 */
 
 char		*temp_path(char *path, char *d_name)
 {
-	return (ft_strjoin(ft_strjoin(path, "/"), d_name));
-}
-
-/*
-**	append_path()
-**	might actually be redundant
-**	changes actual path string
-*/
-
-char		*append_path(char *path, char *new_path)
-{
-	path = ft_strjoin(ft_strjoin(path, "/"), new_path);
-	return (path);
+	if (path[ft_strlen(path) - 1] != '/')
+		return (ft_strjoin(ft_strjoin(path, "/"), d_name));
+	else
+		return (ft_strjoin_f(path, d_name));	
 }
 
 /*

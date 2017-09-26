@@ -24,7 +24,7 @@
 # include <time.h>
 # include <stdio.h>
 
-# define node data, stats = get_stats(&statbuf), statbuf.st_mtime
+# define node data, stats = get_stats(&statbuf), statbuf.st_mtime, flags
 
 typedef struct		s_pack
 {
@@ -50,12 +50,12 @@ typedef struct		s_lslist
 
 typedef t_lslist	t_l;
 
-t_lslist			*create_elem(char *data, char *stats, time_t mtime);
-void				list_add_back(t_lslist **head, char *data, char *path);//, char *flags);
+t_lslist			*create_elem(char *data, char *stats, time_t mtime, char *flags);
+void				list_add_back(t_lslist **head, char *data, char *path, char* flags);//, char *flags);
 void				print_list(t_lslist *head, char *flags);//, struct stat *statbuf);//added statbuff
 void				sort_list(t_lslist *head);//, char *flags);
 void				sort_list_r(t_lslist *head);
-void				free_list(t_lslist *head);
+void				free_list(t_lslist **head);
 void				read_list_r(t_lslist *head, char *path, char *flags);
 char				*temp_path(char *path, char *d_name);
 char				*append_path(char *path, char *new_path);

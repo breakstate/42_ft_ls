@@ -10,10 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-//lstat populates statbuf which gets passed to a function that puts together a string of
-//all attributes collated from a bunch of other functions.
-
 #include "ft_ls.h"
+
+/*
+**	get_stats()
+**	get_perms()
+**	get_nlinks()
+**	get_usr_grp()
+**	get_mtime()
+*/
 
 char	*get_stats(struct stat *statbuf)//might need temp or freeing funciton
 {
