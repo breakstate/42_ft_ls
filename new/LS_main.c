@@ -14,9 +14,10 @@ void	read_list_r(t_lslist *current, char *path, char *flags)
 	while (current != NULL)
 	{
 		fullpath = temp_path(path, current->pack.data);
-		stat(fullpath, &statbuf);
-		if ((statbuf.st_mode & S_IFDIR) && (!(is_hidden((current->pack.data)))))// changed from is_dot
+		lstat(fullpath, &statbuf);
+		if (statbuf.st_mode & S_IFDIR && !is_dot(current->pack.data))// changed from is_dot
 		{
+			printf("\n\nFOLDER = |%s|\n\n\n", current->pack.data);
 			if (not_empty_dir(fullpath))
 			{
 				ft_putchar('\n');
@@ -34,19 +35,19 @@ void	read_list_r(t_lslist *current, char *path, char *flags)
 	//printf nulled out
 }
 
-void		cleanup(t_lslist *head, /*DIR **dir_ptr,*/ char *path, char *flags)//, struct stat *statbuf)//added statbuf
+void		cleanup(t_lslist **head, /*DIR **dir_ptr,*/ char *path, char *flags)//, struct stat *statbuf)//added statbuf
 {
 	
-	sort_controller(head, flags);
+	sort_controller(*head, flags);
 	if (head)
 	{
-		print_list(head, flags);
+		print_list(*head, flags);
 	}
 	if (check_flags(flags, 'R'))
 	{
-		read_list_r(head, path, flags);
+		read_list_r(*head, path, flags);
 	}
-	//dir_reset(dir_ptr, path);
+	free_list(head);
 }
 
 void	ls_loop(char *path, char *flags)
@@ -68,8 +69,7 @@ void	ls_loop(char *path, char *flags)
 		ft_putendl(": No such file or directory bruh");
 		return ;
 	}
-	cleanup(head, /*&dir_ptr,*/ path, flags);
-	free_list(&head);
+	cleanup(&head, /*&dir_ptr,*/ path, flags);
 	closedir(dir_ptr);
 	//printf("done?? ");
 }
