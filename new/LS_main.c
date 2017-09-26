@@ -15,9 +15,8 @@ void	read_list_r(t_lslist *current, char *path, char *flags)
 	{
 		fullpath = temp_path(path, current->pack.data);
 		lstat(fullpath, &statbuf);
-		if (statbuf.st_mode & S_IFDIR && !is_dot(current->pack.data))// changed from is_dot
+		if (statbuf.st_mode & S_IFDIR && !is_dot(current->pack.data))
 		{
-			printf("\n\nFOLDER = |%s|\n\n\n", current->pack.data);
 			if (not_empty_dir(fullpath))
 			{
 				ft_putchar('\n');
@@ -29,13 +28,9 @@ void	read_list_r(t_lslist *current, char *path, char *flags)
 		free(fullpath);
 		current = current->next;
 	}
-	//free(fullpath);
-
-	//free_list(current); //HERE IS RIGHT
-	//printf nulled out
 }
 
-void		cleanup(t_lslist **head, /*DIR **dir_ptr,*/ char *path, char *flags)//, struct stat *statbuf)//added statbuf
+void		cleanup(t_lslist **head, char *path, char *flags)
 {
 	
 	sort_controller(*head, flags);
@@ -69,9 +64,8 @@ void	ls_loop(char *path, char *flags)
 		ft_putendl(": No such file or directory bruh");
 		return ;
 	}
-	cleanup(&head, /*&dir_ptr,*/ path, flags);
+	cleanup(&head, path, flags);
 	closedir(dir_ptr);
-	//printf("done?? ");
 }
 
 int		main(int argc, char **argv)
@@ -101,13 +95,3 @@ int		main(int argc, char **argv)
 	//free(args);//ubuntu is complaining that this is an invalid pointer being freed
 	return (0);
 }
-
-/*
-	*_*TO DO*_*
-
-	manage flags in print function
-	print function must account for symbolic links
-	test sort fuctions thoroughly
-	make sure header norms
-	test free list
-*/
