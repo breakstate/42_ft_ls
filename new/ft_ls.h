@@ -26,6 +26,7 @@
 
 # define node data, stats = get_stats(&statbuf), statbuf.st_mtime, flags
 
+
 typedef struct		s_pack
 {
 	char			*data;
@@ -37,18 +38,17 @@ typedef struct		s_pack
 typedef struct		s_lslist
 {
 	t_pack			pack;
-	//char			*data;
-	//char			*stats;
-	//time_t			mtime;
-
-	/* :::TO ADD::: (for sorting)
-	int		block; ()st_block
-	char	date/time;
-	*/
 	struct s_lslist	*next;
 }					t_lslist;
 
 typedef t_lslist	t_l;
+
+typedef struct		s_structs
+{
+	DIR				*dir_ptr;
+	struct dirent	*cur_dir;
+	t_lslist		*head;
+}					t_structs;
 
 t_lslist			*create_elem(char *data, char *stats, time_t mtime, char *flags);
 void				list_add_back(t_lslist **head, char *data, char *path, char* flags);//, char *flags);
@@ -56,10 +56,10 @@ void				print_list(t_lslist *head, char *flags);//, struct stat *statbuf);//adde
 void				sort_list(t_lslist *head);//, char *flags);
 void				sort_list_r(t_lslist *head);
 void				free_list(t_lslist **head);
-void				read_list_r(t_lslist *head, char *path, char *flags);
+void				read_list_r(t_structs *s, char *path, char *flags);
 char				*temp_path(char *path, char *d_name);
 char				*append_path(char *path, char *new_path);
-void				ls_loop(char *path, char *flags);
+void				ls_loop(char *path, char *flags, t_structs *strcts);
 void				cleanup(t_l **head, char *path, char *flags);//, struct stat *statbuf);//added statbuf
 void				dir_reset(DIR **dir_ptr, char *path);
 int					is_dot(char *d_name);
@@ -81,7 +81,7 @@ char	*get_size(struct stat *stabuf);
 void		sort_controller(t_lslist *head, char *flags);
 void		sort_list_time(t_lslist *head);
 int		not_empty_dir(char *path);
-void	init_to_null(DIR **d_ptr, struct dirent **c, t_lslist **h);
+void	init_to_null(t_structs *strcts);
 void		nl_print_path(char *path);
 
 #endif

@@ -10,11 +10,11 @@
 **	initializes a few variables to NULL to save lines
 */
 
-void	init_to_null(DIR **d_ptr, struct dirent **c, t_l **h)
+void	init_to_null(t_structs *strcts)
 {
-	*d_ptr = NULL;
-	*c = NULL;
-	*h = NULL;
+	(*strcts).dir_ptr = NULL;
+	(*strcts).cur_dir = NULL;
+	(*strcts).head = NULL;
 }
 
 /*

@@ -6,13 +6,16 @@
 **	when -R flag is present
 */
 
-void	read_list_r(t_lslist *current, char *path, char *flags)
+void	read_list_r(t_structs *s, char *path, char *flags)
 {
 	char		*fullpath;
 	struct stat	statbuf;
+	t_lslist *current;
 
+	current = (*s).head;
 	while (current != NULL)
 	{
+		printf("current pack data = %s\n", current->pack.data);
 		fullpath = temp_path(path, current->pack.data);
 		lstat(fullpath, &statbuf);
 		if (statbuf.st_mode & S_IFDIR && !is_dot(current->pack.data))
@@ -20,7 +23,7 @@ void	read_list_r(t_lslist *current, char *path, char *flags)
 			if (not_empty_dir(fullpath))
 			{
 				ft_putchar('\n');
-				ls_loop(fullpath, flags);
+				ls_loop(fullpath, flags, s);
 			}
 			else
 				nl_print_path(fullpath);
@@ -30,33 +33,14 @@ void	read_list_r(t_lslist *current, char *path, char *flags)
 	}
 }
 
-void		cleanup(t_lslist **head, char *path, char *flags)
-{
-	
-	sort_controller(*head, flags);
-	if (head)
-	{
-		print_list(*head, flags);
-	}
-	if (check_flags(flags, 'R'))
-	{
-		read_list_r(*head, path, flags);
-	}
-	free_list(head);
-}
 
-void	ls_loop(char *path, char *flags)
+void	ls_loop(char *path, char *flags, t_structs *s)
 {
-	DIR				*dir_ptr;
-	struct dirent	*cur_dir;
-	t_lslist		*head;
-
-	init_to_null(&dir_ptr, &cur_dir, &head);
-	if ((dir_ptr = opendir(path)) != NULL)
+	if ((s->dir_ptr = opendir(path)) != NULL)
 	{
 		print_path(path);
-		while ((cur_dir = readdir(dir_ptr)))
-			list_add_back(&head, cur_dir->d_name, path, flags);
+		while ((s->cur_dir = readdir(s->dir_ptr)))
+		list_add_back(&s->head, s->cur_dir->d_name, path, flags);
 	}
 	else
 	{
@@ -64,9 +48,24 @@ void	ls_loop(char *path, char *flags)
 		ft_putendl(": No such file or directory bruh");
 		return ;
 	}
-	cleanup(&head, path, flags);
-	closedir(dir_ptr);
+	closedir(s->dir_ptr);
 }
+
+void	controller(char *path, char *flags)
+{
+	t_structs	s;
+	
+	init_to_null(&s);
+	ls_loop(path, flags, &s);
+	sort_controller(s.head, flags);
+	print_list(s.head, flags);
+	if (check_flags(flags, 'R'))
+	{
+		read_list_r(&s, path, flags);
+	}
+	//free_list(&s.head);
+}
+
 
 int		main(int argc, char **argv)
 {
@@ -89,7 +88,7 @@ int		main(int argc, char **argv)
 	//check if args are valid (prints invalid first)
 	while (args[++i])
 	{
-		ls_loop(args[i], flags);
+		controller(args[i], flags);
 		ft_putstr("\n");
 	}
 	//free(args);//ubuntu is complaining that this is an invalid pointer being freed
